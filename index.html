@@ -17,7 +17,7 @@
 
   <!-- Header -->
   <header class="bg-indigo-900 text-white shadow-xl border-b-4 border-amber-400">
-    <div class="max-w-6xl mx-mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-4 text-center md:text-left">
         <div class="w-14 h-14 bg-white text-indigo-900 rounded-2xl flex items-center justify-center font-black text-2xl shadow-inner">
           PC
@@ -82,7 +82,7 @@
     <div id="alertBox" class="hidden max-w-xl mx-auto p-4 mb-8 text-sm text-red-800 rounded-2xl bg-red-50 border border-red-200 text-center font-medium"></div>
 
     <!-- Student Details Card -->
-    <div id="studentCard" class="hidden bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden transition-all duration-300">
+    <div id="studentCard" class="hidden bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden transition-all duration-300 mb-8">
       
       <!-- Card Header -->
       <div class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-indigo-900 p-6 md:p-8 text-white relative">
@@ -172,6 +172,91 @@
             <p id="resTeacherMobile" class="text-sm font-semibold text-slate-600 mt-0.5">---</p>
           </div>
 
+        </div>
+
+      </div>
+    </div>
+
+    <!-- First Year Induction Program Section -->
+    <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden max-w-4xl mx-auto my-8">
+      <!-- Section Header -->
+      <div class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-indigo-900 p-6 md:p-8 text-white relative text-center">
+        <span class="inline-block bg-amber-400 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+          Pimpri Chinchwad Education Trust's
+        </span>
+        <h3 class="text-2xl md:text-3xl font-extrabold tracking-tight uppercase text-amber-300">First Year Induction Program</h3>
+        <p class="text-indigo-200 font-semibold mt-1">Pimpri Chinchwad College of Engineering</p>
+      </div>
+
+      <!-- Content Body -->
+      <div class="p-6 md:p-8 space-y-6">
+        
+        <!-- Date & Venue Highlight Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-amber-400 text-indigo-900 flex items-center justify-center text-xl font-black">
+              <i class="fa-solid fa-calendar-day"></i>
+            </div>
+            <div>
+              <p class="text-xs text-amber-800 font-bold uppercase tracking-wider">Date</p>
+              <p class="text-lg font-extrabold text-slate-900">September 16, 2026</p>
+            </div>
+          </div>
+
+          <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-4 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xl font-black">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div>
+              <p class="text-xs text-indigo-800 font-bold uppercase tracking-wider">Venue</p>
+              <p class="text-base font-extrabold text-slate-900">प्राध्यापक रामकृष्ण मोरे प्रेक्षागृह</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schedule Section -->
+        <div class="space-y-4">
+          <h4 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider text-center md:text-left">Program Schedules</h4>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Morning Schedule -->
+            <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl flex flex-col justify-between space-y-3">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-extrabold bg-indigo-100 text-indigo-700 px-2.5 py-1 rounded-lg uppercase">Morning Session</span>
+                  <span class="text-sm font-bold text-slate-700"><i class="fa-regular fa-clock mr-1"></i>9.00 am to 12.00 pm</span>
+                </div>
+                <h5 class="font-extrabold text-slate-800 text-lg mb-1">Eligible Programs:</h5>
+                <p class="text-slate-600 font-medium text-sm">Mechanical, Civil, Civil-Regional, E & TC</p>
+              </div>
+            </div>
+
+            <!-- Afternoon Schedule -->
+            <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl flex flex-col justify-between space-y-3">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-extrabold bg-amber-100 text-amber-800 px-2.5 py-1 rounded-lg uppercase">Afternoon Session</span>
+                  <span class="text-sm font-bold text-slate-700"><i class="fa-regular fa-clock mr-1"></i>1.00 pm to 3.00 pm</span>
+                </div>
+                <h5 class="font-extrabold text-slate-800 text-lg mb-1">Eligible Programs:</h5>
+                <p class="text-slate-600 font-medium text-sm">Computer, Computer-Regional, IT, AI-ML</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Leadership & Incharges -->
+        <div class="pt-4 border-t border-slate-100">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center md:text-left">
+            <div>
+              <p class="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1">Program Incharges</p>
+              <p class="font-bold text-slate-800 text-sm">Mrs. Anjali Sakurkar | Mr. Dinesh Kute | Dr. Neha Sharma</p>
+            </div>
+            <div class="md:text-right">
+              <p class="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1">Head of Department (HOD)</p>
+              <p class="font-extrabold text-indigo-900 text-sm">Dr. Leena Sharma</p>
+            </div>
+          </div>
         </div>
 
       </div>
