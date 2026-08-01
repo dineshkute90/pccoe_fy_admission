@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidate Login | PCCOE</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    
+    .nav-btn.active {
+      background-color: #1e3a8a;
+      color: #ffffff;
+      box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between">
+
+  <!-- TOP HEADER SECTION -->
+  <header class="bg-white border-b border-slate-200 py-4 px-4 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+      <div class="flex items-center gap-4">
+        <a href="index.html">
+          <img src="pccoe_logo.png" alt="PCCOE Logo" class="h-20 w-auto object-contain" onerror="this.src='https://via.placeholder.com/80?text=PCCOE'">
+        </a>
+      </div>
+      <div class="text-center flex-1">
+        <h3 class="text-xs md:text-sm font-bold text-blue-900 tracking-wider uppercase">PIMPRI CHINCHWAD EDUCATION TRUST'S</h3>
+        <h1 class="text-xl md:text-3xl font-extrabold text-blue-900 tracking-tight my-0.5">PIMPRI CHINCHWAD COLLEGE OF ENGINEERING</h1>
+        <p class="text-[11px] md:text-xs font-semibold text-slate-600">
+          <span class="text-red-700 font-bold">NBA</span> Accredited | 
+          <span class="text-red-700 font-bold">NAAC</span> Accredited with <span class="text-red-700 font-bold">'A'</span> Grade | 
+          An <span class="font-bold">Autonomous Institute</span> | 
+          <span class="font-bold">AICTE</span> Approved | Permanently Affiliated to <span class="font-bold">SPPU</span>, Pune
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION BAR -->
+  <nav class="bg-blue-600 shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-2">
+      <div class="flex flex-wrap items-center justify-center md:justify-start gap-1 py-1.5 text-white font-bold text-xs md:text-sm">
+        <a href="index.html" class="nav-btn px-4 py-2.5 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
+          <i class="fa-solid fa-house mr-1.5"></i> Home
+        </a>
+        <a href="candidate-login.html" class="nav-btn active px-4 py-2.5 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
+          <i class="fa-solid fa-user-lock mr-1.5"></i> Candidate Login
+        </a>
+        <a href="induction-program.html" class="nav-btn px-4 py-2.5 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
+          <i class="fa-solid fa-graduation-cap mr-1.5"></i> Induction Program
+        </a>
+        <a href="timetable.html" class="nav-btn px-4 py-2.5 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
+          <i class="fa-solid fa-calendar-days mr-1.5"></i> Time Table
+        </a>
+        <a href="notices.html" class="nav-btn px-4 py-2.5 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
+          <i class="fa-solid fa-bell mr-1.5"></i> Notices
+        </a>
+        <a href="https://www.pccoepune.com" target="_blank" rel="noopener noreferrer" class="nav-btn px-4 py-2.5 rounded-lg hover:bg-blue-700 uppercase tracking-wide flex items-center gap-1">
+          <i class="fa-solid fa-globe"></i> PCCOE <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT: CANDIDATE LOGIN -->
+  <main class="max-w-6xl mx-auto w-full px-4 py-8 flex-grow space-y-6">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-extrabold text-slate-900 mb-2">Candidate Login & Profile Search 🎉</h2>
+      <p class="text-slate-600 max-w-lg mx-auto text-sm">Enter your Application ID below to view your allocated division, class teacher information, and official admission records.</p>
+    </div>
+
+    <!-- Search Box -->
+    <div class="bg-white p-6 md:p-8 rounded-3xl shadow-xl shadow-indigo-100 border border-slate-100 mb-8 max-w-xl mx-auto">
+      <form id="searchForm" onsubmit="fetchStudentData(event)" class="space-y-4">
+        <div>
+          <label for="appIdInput" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+            Application ID
+          </label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
+              <i class="fa-solid fa-id-card"></i>
+            </span>
+            <input 
+              type="text" 
+              id="appIdInput" 
+              placeholder="e.g. EN25123456" 
+              required 
+              class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-600 focus:outline-none transition text-slate-800 font-semibold placeholder:font-normal placeholder:text-slate-400 uppercase tracking-wide"
+            />
+          </div>
+        </div>
+        <button 
+          type="submit" 
+          id="searchBtn"
+          class="w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-blue-200 transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span>Search Student Profile</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="hidden text-center py-12">
+      <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-blue-600 border-t-transparent"></div>
+      <p class="mt-4 text-slate-600 font-medium">Fetching details from admissions database...</p>
+    </div>
+
+    <!-- Alert Box -->
+    <div id="alertBox" class="hidden max-w-xl mx-auto p-4 mb-8 text-sm text-red-800 rounded-2xl bg-red-50 border border-red-200 text-center font-medium"></div>
+
+    <!-- Student Details Card -->
+    <div id="studentCard" class="hidden bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden transition-all duration-300 mb-8 max-w-4xl mx-auto">
+      <div class="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 p-6 md:p-8 text-white relative">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <span class="inline-block bg-amber-400 text-slate-900 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+              Admitted
+            </span>
+            <h3 id="resName" class="text-2xl md:text-3xl font-bold tracking-tight">---</h3>
+            <p id="resProgram" class="text-blue-200 font-medium mt-1">---</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-2xl text-center border border-white/10 self-start md:self-auto">
+            <p class="text-xs text-blue-200 font-semibold uppercase">Division</p>
+            <p id="resDivision" class="text-4xl font-extrabold text-amber-300">---</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-4">
+          <h4 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Student Identifiers</h4>
+          <div class="flex items-center gap-3 p-3.5 bg-slate-50 rounded-2xl">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-hashtag"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 font-medium">Application ID</p>
+              <p id="resAppId" class="font-bold text-slate-800">---</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 p-3.5 bg-slate-50 rounded-2xl">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-id-badge"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 font-medium">PRN</p>
+              <p id="resPRN" class="font-bold text-slate-800">---</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 p-3.5 bg-slate-50 rounded-2xl">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 font-medium">Date of Admission</p>
+              <p id="resDate" class="font-bold text-slate-800">---</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <h4 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Contact & Mentorship</h4>
+          <div class="flex items-center gap-3 p-3.5 bg-slate-50 rounded-2xl">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="overflow-hidden">
+              <p class="text-xs text-slate-500 font-medium">College Email ID</p>
+              <p id="resEmail" class="font-bold text-slate-800 truncate">---</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 p-3.5 bg-slate-50 rounded-2xl">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-phone"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 font-medium">Student Mobile</p>
+              <p id="resMobile" class="font-bold text-slate-800">---</p>
+            </div>
+          </div>
+
+          <div class="p-4 bg-amber-50/70 border border-amber-200 rounded-2xl">
+            <div class="flex items-center gap-2 text-amber-800 font-bold text-xs uppercase tracking-wide mb-2">
+              <i class="fa-solid fa-chalkboard-user"></i> Class Teacher Contact
+            </div>
+            <p id="resTeacher" class="font-extrabold text-slate-800 text-base">---</p>
+            <p id="resTeacherMobile" class="text-sm font-semibold text-slate-600 mt-0.5">---</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs border-t border-slate-800">
+    <p>© 2026 Pimpri Chinchwad College of Engineering (PCCOE). All Rights Reserved.</p>
+    <p class="mt-1 text-slate-500">Department of Applied Sciences & Humanities</p>
+  </footer>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwzR8ROrTtjzS51lHmJGLhPBA9_auHdKWtE62a2Ufa6BbEzz91lPNv4xOqJfiyVDSjAkA/exec";
+
+    async function fetchStudentData(event) {
+      event.preventDefault();
+      
+      const appId = document.getElementById("appIdInput").value.trim();
+      const loading = document.getElementById("loading");
+      const alertBox = document.getElementById("alertBox");
+      const studentCard = document.getElementById("studentCard");
+
+      alertBox.classList.add("hidden");
+      studentCard.classList.add("hidden");
+      loading.classList.remove("hidden");
+
+      try {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?appId=${encodeURIComponent(appId)}`);
+        const result = await response.json();
+
+        loading.classList.add("hidden");
+
+        if (result.status === "success") {
+          const data = result.data;
+
+          document.getElementById("resName").textContent = data.name;
+          document.getElementById("resProgram").textContent = data.program;
+          document.getElementById("resDivision").textContent = data.division;
+          document.getElementById("resAppId").textContent = data.applicationId;
+          document.getElementById("resPRN").textContent = data.prn;
+          document.getElementById("resEmail").textContent = data.email;
+          document.getElementById("resMobile").textContent = data.mobile;
+          document.getElementById("resTeacher").textContent = data.classTeacher;
+          document.getElementById("resTeacherMobile").textContent = data.classTeacherMobile;
+          document.getElementById("resDate").textContent = data.dateOfAdmission;
+
+          studentCard.classList.remove("hidden");
+        } else {
+          alertBox.textContent = result.message || "Application ID not found. Please double-check and try again.";
+          alertBox.classList.remove("hidden");
+        }
+      } catch (err) {
+        loading.classList.add("hidden");
+        alertBox.textContent = "Unable to connect to the server. Please verify your internet connection or Web App deployment URL.";
+        alertBox.classList.remove("hidden");
+      }
+    }
+  </script>
+</body>
+</html>
