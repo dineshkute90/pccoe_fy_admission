@@ -138,12 +138,12 @@
   </div>
 
   <!-- MAIN CONTENT: PDF EXTRACTOR (PROTECTED AREA) -->
-  <main id="protectedContent" class="hidden max-w-4xl mx-auto w-full px-4 py-8 flex-grow">
+  <main id="protectedContent" class="hidden max-w-4xl mx-auto w-full px-4 py-8 flex-grow space-y-6">
     <div class="bg-white p-8 rounded-3xl shadow-xl border border-slate-200 text-center">
       <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 mb-4 text-2xl font-bold">
         <i class="fa-solid fa-file-pdf"></i>
       </div>
-      <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">State CET Student Data Extractor</h2>
+      <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">CET Cell Allotment List Extractor</h2>
       <p class="text-slate-600 text-sm mt-2 max-w-lg mx-auto">
         Upload your Allotment List PDF to extract table data with Course/Branch mapping directly into Excel.
       </p>
@@ -161,6 +161,69 @@
       </button>
 
       <div id="status" class="mt-4 font-semibold text-sm text-slate-700 min-h-[24px]"></div>
+    </div>
+
+    <!-- SYMBOLS & LEGENDS GUIDE SECTION -->
+    <div class="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-slate-200 space-y-6">
+      <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
+          <i class="fa-solid fa-circle-info text-lg"></i>
+        </div>
+        <div>
+          <h3 class="text-lg font-extrabold text-slate-900">Meaning of Symbols & Legends</h3>
+          <p class="text-xs text-slate-500">Official reference keys for allotment data symbols and codes</p>
+        </div>
+      </div>
+
+      <!-- SYMBOLS GRID -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-black uppercase text-slate-400 tracking-wider">Document Receipts Symbols</h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-100">
+            <span class="font-black text-amber-600 bg-amber-100 w-8 h-8 rounded-lg flex items-center justify-center shrink-0">$</span>
+            <p class="text-xs text-slate-700 leading-snug"><strong class="text-slate-900">$ (Dollar sign):</strong> Uploaded receipt for Caste / Tribe Validity Certificate.</p>
+          </div>
+
+          <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-100">
+            <span class="font-black text-blue-600 bg-blue-100 w-8 h-8 rounded-lg flex items-center justify-center shrink-0">@</span>
+            <p class="text-xs text-slate-700 leading-snug"><strong class="text-slate-900">@ (At symbol):</strong> Uploaded receipt for EWS (Economically Weaker Section) Certificate.</p>
+          </div>
+
+          <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-100">
+            <span class="font-black text-emerald-600 bg-emerald-100 w-8 h-8 rounded-lg flex items-center justify-center shrink-0">#</span>
+            <p class="text-xs text-slate-700 leading-snug"><strong class="text-slate-900"># (Hash symbol):</strong> Uploaded receipt for Non-Creamy Layer (NCL) Certificate.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEAT TYPE & CHOICE CODE LEGENDS -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+        <div class="space-y-2">
+          <h4 class="text-xs font-black uppercase text-slate-400 tracking-wider">Legends for SeatType</h4>
+          <ul class="text-xs text-slate-700 space-y-1.5 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+            <li><strong class="text-blue-900">H:</strong> Home University</li>
+            <li><strong class="text-blue-900">O:</strong> Other than Home University</li>
+            <li><strong class="text-blue-900">S:</strong> State Level</li>
+            <li><strong class="text-blue-900">G:</strong> General | <strong class="text-blue-900">L:</strong> Ladies</li>
+            <li><strong class="text-blue-900">AI:</strong> All India</li>
+            <li><strong class="text-blue-900">MI:</strong> Minority Seats (Allotted to Minority Candidates of eligible Religious/Linguistic community)</li>
+            <li><strong class="text-blue-900">PWDR:</strong> PWD Common Reserved Seat</li>
+            <li><strong class="text-blue-900">DEFR:</strong> Defense Common Reserved Seat</li>
+            <li><strong class="text-blue-900">Merit No:</strong> State General Merit No.</li>
+          </ul>
+        </div>
+
+        <div class="space-y-2">
+          <h4 class="text-xs font-black uppercase text-slate-400 tracking-wider">Legends for ChoiceCode</h4>
+          <ul class="text-xs text-slate-700 space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+            <li><strong class="text-blue-900">L:</strong> Regional Language</li>
+            <li><strong class="text-blue-900">F:</strong> Female</li>
+            <li><strong class="text-blue-900">T:</strong> Tuition Fee Waiver Scheme (TFWS)</li>
+            <li><strong class="text-blue-900">U:</strong> UnAided</li>
+            <li><strong class="text-blue-900">K:</strong> Konkan</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </main>
 
