@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal - PDF Extractor | PCCOE</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- SheetJS for writing Excel files -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <!-- PDF.js for parsing PDF content -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    
+    .nav-btn.active {
+      background-color: #1e3a8a;
+      color: #ffffff;
+      box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .drop-zone { 
+      border: 2px dashed #3b82f6; 
+      border-radius: 12px; 
+      padding: 40px; 
+      cursor: pointer; 
+      color: #475569; 
+      background: #f8fafc; 
+      transition: all 0.2s ease-in-out;
+    }
+    .drop-zone:hover { 
+      background-color: #eff6ff; 
+      border-color: #2563eb;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between">
+
+  <!-- HEADER -->
+  <header>
+    <!-- TOP LOGO & TITLE SECTION -->
+    <div class="bg-white border-b border-slate-200 py-4 px-4">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+        <div class="flex items-center gap-4">
+          <a href="index.html">
+            <img src="pccoe_logo.png" alt="PCCOE Logo" class="h-20 w-auto object-contain" onerror="this.src='https://via.placeholder.com/80?text=PCCOE'">
+          </a>
+        </div>
+        <div class="text-center flex-1">
+          <h3 class="text-xs md:text-sm font-bold text-blue-900 tracking-wider uppercase">PIMPRI CHINCHWAD EDUCATION TRUST'S</h3>
+          <h1 class="text-xl md:text-3xl font-extrabold text-blue-900 tracking-tight my-0.5">PIMPRI CHINCHWAD COLLEGE OF ENGINEERING</h1>
+          <p class="text-[11px] md:text-xs font-semibold text-slate-600">
+            <span class="text-red-700 font-bold">NBA</span> Accredited | 
+            <span class="text-red-700 font-bold">NAAC</span> Accredited with <span class="text-red-700 font-bold">'A'</span> Grade | 
+            An <span class="font-bold">Autonomous Institute</span> | 
+            <span class="font-bold">AICTE</span> Approved | Permanently Affiliated to <span class="font-bold">SPPU</span>, Pune
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="bg-blue-600">
+      <div class="max-w-7xl mx-auto px-2">
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-1 py-1.5 text-white font-bold text-xs md:text-sm">
+          <a href="index.html" class="nav-btn px-4 py-2.5 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
+            <i class="fa-solid fa-house mr-1.5"></i> Home
+          </a>
+          <a href="candidate-login.html" class="nav-btn px-4 py-2.5 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
+            <i class="fa-solid fa-user-lock mr-1.5"></i> Candidate Login
+          </a>
+          <a href="induction-program.html" class="nav-btn px-4 py-2.5 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
+            <i class="fa-solid fa-graduation-cap mr-1.5"></i> Induction Program
+          </a>
+          <a href="timetable.html" class="nav-btn px-4 py-2.5 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
+            <i class="fa-solid fa-calendar-days mr-1.5"></i> Time Table
+          </a>
+          <a href="notices.html" class="nav-btn px-4 py-2.5 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
+            <i class="fa-solid fa-bell mr-1.5"></i> Notices
+          </a>
+
+          <!-- ADMIN DROPDOWN MENU -->
+          <div class="relative inline-block text-left group">
+            <button class="nav-btn active px-4 py-2.5 rounded-lg hover:bg-blue-700 uppercase tracking-wide flex items-center gap-1.5">
+              <i class="fa-solid fa-user-gear"></i> Admin <i class="fa-solid fa-chevron-down text-[10px]"></i>
+            </button>
+            <div class="absolute left-0 w-48 bg-white text-slate-800 rounded-xl shadow-xl py-2 hidden group-hover:block z-50 border border-slate-100">
+              <a href="admin.html" class="flex items-center gap-2 px-4 py-2 text-xs font-bold hover:bg-blue-50 hover:text-blue-700">
+                <i class="fa-solid fa-file-pdf text-red-600"></i> PDF Extractor
+              </a>
+            </div>
+          </div>
+
+          <a href="https://www.pccoepune.com" target="_blank" rel="noopener noreferrer" class="nav-btn px-4 py-2.5 rounded-lg hover:bg-blue-700 uppercase tracking-wide flex items-center gap-1">
+            <i class="fa-solid fa-globe"></i> PCCOE <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ADMIN LOGIN MODAL (SHOWS IF NOT LOGGED IN) -->
+  <div id="loginModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-slate-100 p-6 md:p-8 relative">
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl font-bold">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900">PDF Extractor Login</h3>
+        <p class="text-xs text-slate-500 mt-1">Please log in to access the Admin PDF Extractor</p>
+      </div>
+
+      <form onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-extrabold text-slate-500 uppercase tracking-wider mb-1">Username</label>
+          <input type="text" id="adminUser" placeholder="Enter username" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none text-sm font-semibold">
+        </div>
+        <div>
+          <label class="block text-xs font-extrabold text-slate-500 uppercase tracking-wider mb-1">Password</label>
+          <input type="password" id="adminPass" placeholder="Enter password" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none text-sm font-semibold">
+        </div>
+
+        <div id="loginError" class="hidden text-xs text-red-600 font-bold text-center">
+          Invalid username or password!
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-blue-500/20 transition text-sm">
+          Login & Access
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT: PDF EXTRACTOR (PROTECTED AREA) -->
+  <main id="protectedContent" class="hidden max-w-4xl mx-auto w-full px-4 py-8 flex-grow">
+    <div class="bg-white p-8 rounded-3xl shadow-xl border border-slate-200 text-center">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 mb-4 text-2xl font-bold">
+        <i class="fa-solid fa-file-pdf"></i>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">State CET Student Data Extractor</h2>
+      <p class="text-slate-600 text-sm mt-2 max-w-lg mx-auto">
+        Upload your Allotment List PDF to extract table data with Course/Branch mapping directly into Excel.
+      </p>
+
+      <div class="drop-zone mt-6" id="dropZone">
+        <i class="fa-solid fa-cloud-arrow-up text-4xl text-blue-500 mb-3 block"></i>
+        <span class="font-bold text-slate-700">Drag & Drop PDF File Here</span> 
+        <span class="block text-xs text-slate-400 mt-1">or click to browse from your computer</span>
+        <input type="file" id="fileInput" accept="application/pdf" class="hidden">
+      </div>
+
+      <button id="downloadBtn" class="hidden mt-6 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-bold py-3.5 px-8 rounded-2xl shadow-lg shadow-emerald-600/20 transition mx-auto flex items-center gap-2">
+        <i class="fa-solid fa-file-excel"></i>
+        <span>Download Excel (.xlsx)</span>
+      </button>
+
+      <div id="status" class="mt-4 font-semibold text-sm text-slate-700 min-h-[24px]"></div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs border-t border-slate-800">
+    <p>© 2026 Pimpri Chinchwad College of Engineering (PCCOE). All Rights Reserved.</p>
+    <p class="mt-1 text-slate-500">Department of Applied Sciences & Humanities</p>
+  </footer>
+
+  <!-- SCRIPT IMPLEMENTATION -->
+  <script>
+    // AUTHENTICATION LOGIC
+    function handleLogin(event) {
+      event.preventDefault();
+      const username = document.getElementById("adminUser").value.trim();
+      const password = document.getElementById("adminPass").value.trim();
+      const loginError = document.getElementById("loginError");
+
+      if (username === "pccoe@maths" && password === "pccoe@maths") {
+        document.getElementById("loginModal").classList.add("hidden");
+        document.getElementById("protectedContent").classList.remove("hidden");
+      } else {
+        loginError.classList.remove("hidden");
+      }
+    }
+
+    // PDF EXTRACTOR LOGIC
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const status = document.getElementById('status');
+    const downloadBtn = document.getElementById('downloadBtn');
+    let extractedData = [];
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', (e) => e.preventDefault());
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files.length) processPDF(e.dataTransfer.files[0]);
+    });
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) processPDF(e.target.files[0]);
+    });
+
+    async function processPDF(file) {
+        status.innerText = "Processing PDF pages...";
+        downloadBtn.style.display = "none";
+        extractedData = [];
+        
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            
+            for (let i = 1; i <= pdf.numPages; i++) {
+                status.innerText = `Extracting page ${i} of ${pdf.numPages}...`;
+                const page = await pdf.getPage(i);
+                const textContent = await page.getTextContent();
+                
+                let lines = {};
+                const TOLERANCE = 4;
+
+                textContent.items.forEach(item => {
+                    let rawY = item.transform[5];
+                    let text = item.str.trim();
+                    if (!text) return;
+
+                    let matchedY = Object.keys(lines).find(y => Math.abs(y - rawY) <= TOLERANCE);
+                    
+                    if (matchedY) {
+                        lines[matchedY].push({ x: item.transform[4], text: text });
+                    } else {
+                        lines[rawY] = [{ x: item.transform[4], text: text }];
+                    }
+                });
+
+                let sortedYs = Object.keys(lines).sort((a, b) => b - a);
+                let pageBranch = "N/A";
+                
+                if (sortedYs.length > 0) {
+                    let bottomY = sortedYs[sortedYs.length - 1]; 
+                    let footerItems = lines[bottomY].sort((a, b) => a.x - b.x).map(item => item.text);
+                    let footerString = footerItems.join(" ");
+
+                    let cleanFooter = footerString
+                        .replace(/Page\s+\d+\s+of\s+\d+/i, '') 
+                        .replace(/^\d+/, '')                  
+                        .trim();
+
+                    if (cleanFooter.length > 0) {
+                        pageBranch = cleanFooter;
+                    }
+                }
+
+                sortedYs.forEach(y => {
+                    let rowItems = lines[y].sort((a, b) => a.x - b.x);
+                    let rowText = rowItems.map(item => item.text);
+                    let fullLineText = rowText.join(" ");
+
+                    if (/^\d+\s+\d+/.test(fullLineText) || (rowText.length >= 5 && !isNaN(rowText[0]))) {
+                        extractedData.push({
+                            "Sr. No.": rowText[0] || "",
+                            "Merit No.": rowText[1] || "",
+                            "Score": rowText[2] || "",
+                            "Application ID": rowText[3] || "",
+                            "Name of Candidate": rowText[4] || "",
+                            "Gender": rowText[5] || "",
+                            "Category": rowText[6] || "",
+                            "Seat Type": rowText.slice(7).join(" ") || "",
+                            "Branch": pageBranch
+                        });
+                    }
+                });
+            }
+
+            if (extractedData.length > 0) {
+                status.innerText = `Extraction complete! Processed ${extractedData.length} records across ${pdf.numPages} pages.`;
+                downloadBtn.style.display = "flex";
+            } else {
+                status.innerText = "No student rows detected. Make sure this is a text-based PDF.";
+            }
+        } catch (err) {
+            console.error(err);
+            status.innerText = "An error occurred while parsing the file. Check console logs for details.";
+        }
+    }
+
+    downloadBtn.addEventListener('click', () => {
+        const worksheet = XLSX.utils.json_to_sheet(extractedData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Admitted_Students");
+        XLSX.writeFile(workbook, "State_CET_Admitted_Students.xlsx");
+    });
+  </script>
+
+</body>
+</html>
