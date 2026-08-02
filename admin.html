@@ -10,6 +10,8 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- Supabase JS Client Library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <!-- SheetJS for writing Excel files -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <!-- PDF.js for parsing PDF content -->
@@ -113,25 +115,23 @@
           <i class="fa-solid fa-lock"></i>
         </div>
         <h3 class="text-xl font-bold text-slate-900">PDF Extractor Login</h3>
-        <p class="text-xs text-slate-500 mt-1">Please log in to access the Admin PDF Extractor</p>
+        <p class="text-xs text-slate-500 mt-1">Please log in via Supabase to access Admin Portal</p>
       </div>
 
       <form onsubmit="handleLogin(event)" class="space-y-4">
         <div>
-          <label class="block text-xs font-extrabold text-slate-500 uppercase tracking-wider mb-1">Username</label>
-          <input type="text" id="adminUser" placeholder="Enter username" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none text-sm font-semibold">
+          <label class="block text-xs font-extrabold text-slate-500 uppercase tracking-wider mb-1">Email</label>
+          <input type="email" id="adminUser" placeholder="Enter admin email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none text-sm font-semibold">
         </div>
         <div>
           <label class="block text-xs font-extrabold text-slate-500 uppercase tracking-wider mb-1">Password</label>
           <input type="password" id="adminPass" placeholder="Enter password" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none text-sm font-semibold">
         </div>
 
-        <div id="loginError" class="hidden text-xs text-red-600 font-bold text-center">
-          Invalid username or password!
-        </div>
+        <div id="loginError" class="hidden text-xs text-red-600 font-bold text-center"></div>
 
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-blue-500/20 transition text-sm">
-          Login & Access
+        <button type="submit" id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-blue-500/20 transition text-sm flex items-center justify-center gap-2">
+          <span>Login & Access</span>
         </button>
       </form>
     </div>
@@ -139,6 +139,15 @@
 
   <!-- MAIN CONTENT: PDF EXTRACTOR (PROTECTED AREA) -->
   <main id="protectedContent" class="hidden max-w-4xl mx-auto w-full px-4 py-8 flex-grow space-y-6">
+    <div class="flex justify-between items-center bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+      <div class="text-xs font-bold text-slate-600">
+        Logged in as: <span id="userEmailDisplay" class="text-blue-900 font-extrabold"></span>
+      </div>
+      <button onclick="handleLogout()" class="bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs px-3 py-1.5 rounded-lg border border-red-200 transition">
+        <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
+      </button>
+    </div>
+
     <div class="bg-white p-8 rounded-3xl shadow-xl border border-slate-200 text-center">
       <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 mb-4 text-2xl font-bold">
         <i class="fa-solid fa-file-pdf"></i>
@@ -235,19 +244,60 @@
 
   <!-- SCRIPT IMPLEMENTATION -->
   <script>
-    // AUTHENTICATION LOGIC
-    function handleLogin(event) {
+    // SUPABASE INITIALIZATION
+    const SUPABASE_URL = "https://dvewbixgjjyotcbhdlnc.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2ZXdiaXhnamp5b3RjYmhkbG5jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUzOTgyNDcsImV4cCI6MjEwMDk3NDI0N30.M138nudFENeCI-MgqDAiv6_le1ZA3cPivDbGOueiX14";
+
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // CHECK ACTIVE SESSION ON LOAD
+    window.addEventListener('DOMContentLoaded', async () => {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session) {
+        showProtectedContent(session.user.email);
+      }
+    });
+
+    function showProtectedContent(email) {
+      document.getElementById("userEmailDisplay").textContent = email;
+      document.getElementById("loginModal").classList.add("hidden");
+      document.getElementById("protectedContent").classList.remove("hidden");
+    }
+
+    // SUPABASE AUTHENTICATION LOGIC
+    async function handleLogin(event) {
       event.preventDefault();
-      const username = document.getElementById("adminUser").value.trim();
+      const email = document.getElementById("adminUser").value.trim();
       const password = document.getElementById("adminPass").value.trim();
       const loginError = document.getElementById("loginError");
+      const loginBtn = document.getElementById("loginBtn");
 
-      if (username === "pccoe@maths" && password === "pccoe@maths") {
-        document.getElementById("loginModal").classList.add("hidden");
-        document.getElementById("protectedContent").classList.remove("hidden");
-      } else {
+      loginError.classList.add("hidden");
+      loginBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Authenticatin...';
+      loginBtn.disabled = true;
+
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      loginBtn.innerHTML = '<span>Login & Access</span>';
+      loginBtn.disabled = false;
+
+      if (error) {
+        loginError.textContent = error.message;
         loginError.classList.remove("hidden");
+      } else if (data.session) {
+        showProtectedContent(data.session.user.email);
       }
+    }
+
+    async function handleLogout() {
+      await supabaseClient.auth.signOut();
+      document.getElementById("protectedContent").classList.add("hidden");
+      document.getElementById("loginModal").classList.remove("hidden");
+      document.getElementById("adminUser").value = "";
+      document.getElementById("adminPass").value = "";
     }
 
     // PDF EXTRACTOR LOGIC
