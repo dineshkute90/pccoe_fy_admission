@@ -301,6 +301,21 @@
   <script>
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwzR8ROrTtjzS51lHmJGLhPBA9_auHdKWtE62a2Ufa6BbEzz91lPNv4xOqJfiyVDSjAkA/exec";
 
+    // Helper function to show only first 2 digits and last 2 digits
+    function maskMobileNumber(mobileNum) {
+      if (!mobileNum) return "---";
+      
+      const str = String(mobileNum).trim();
+      
+      if (str.length <= 4) return str;
+      
+      const firstTwo = str.slice(0, 2);
+      const lastTwo = str.slice(-2);
+      const maskedStars = '*'.repeat(str.length - 4);
+      
+      return `${firstTwo}${maskedStars}${lastTwo}`;
+    }
+
     async function fetchStudentData(event) {
       event.preventDefault();
       
@@ -328,7 +343,10 @@
           document.getElementById("resAppId").textContent = data.applicationId;
           document.getElementById("resPRN").textContent = data.prn;
           document.getElementById("resEmail").textContent = data.email;
-          document.getElementById("resMobile").textContent = data.mobile;
+          
+          // Updated to show only first 2 and last 2 digits
+          document.getElementById("resMobile").textContent = maskMobileNumber(data.mobile);
+          
           document.getElementById("resTeacher").textContent = data.classTeacher;
           document.getElementById("resTeacherMobile").textContent = data.classTeacherMobile;
           document.getElementById("resDate").textContent = data.dateOfAdmission;
