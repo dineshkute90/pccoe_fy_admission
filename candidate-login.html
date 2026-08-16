@@ -250,7 +250,6 @@
       
       const str = String(mobileNum).trim();
       
-      // If the string length is 4 or less, returning it directly as masking isn't possible
       if (str.length <= 4) return str;
       
       const firstTwo = str.slice(0, 2);
@@ -258,6 +257,28 @@
       const maskedStars = '*'.repeat(str.length - 4);
       
       return `${firstTwo}${maskedStars}${lastTwo}`;
+    }
+
+    // Helper function to format ISO strings or dates into DD-MMM-YYYY (e.g. 03-Aug-2026)
+    function formatAdmissionDate(rawDate) {
+      if (!rawDate || rawDate === "---" || rawDate === "N/A") return "---";
+
+      const strVal = String(rawDate).trim();
+
+      // If already matching DD-MMM-YYYY format (e.g. 03-Aug-2026), return directly
+      if (/^\d{2}-[A-Za-z]{3}-\d{4}$/.test(strVal)) {
+        return strVal;
+      }
+
+      const dateObj = new Date(strVal);
+      if (isNaN(dateObj.getTime())) return strVal;
+
+      const day = String(dateObj.getDate()).padStart(2, '0');
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const month = months[dateObj.getMonth()];
+      const year = dateObj.getFullYear();
+
+      return `${day}-${month}-${year}`;
     }
 
     async function fetchStudentData(event) {
@@ -288,12 +309,13 @@
           document.getElementById("resPRN").textContent = data.prn;
           document.getElementById("resEmail").textContent = data.email;
           
-          // Updated to apply masking (First 2 + Last 2 digits visible)
           document.getElementById("resMobile").textContent = maskMobileNumber(data.mobile);
           
           document.getElementById("resTeacher").textContent = data.classTeacher;
           document.getElementById("resTeacherMobile").textContent = data.classTeacherMobile;
-          document.getElementById("resDate").textContent = data.dateOfAdmission;
+          
+          // Formats date string explicitly to DD-MMM-YYYY
+          document.getElementById("resDate").textContent = formatAdmissionDate(data.dateOfAdmission);
 
           studentCard.classList.remove("hidden");
         } else {
