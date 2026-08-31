@@ -78,6 +78,7 @@
           </div>
           <button 
             type="button" 
+            id="searchBtn"
             onclick="searchStudent()" 
             class="w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-bold py-2.5 px-4 rounded-xl shadow-md shadow-blue-500/20 transition text-xs flex items-center justify-center gap-2 cursor-pointer"
           >
@@ -95,8 +96,8 @@
           <div class="w-16 h-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">
             <i class="fa-solid fa-address-card"></i>
           </div>
-          <h3 class="text-base font-bold text-slate-800">No Student Profile Loaded</h3>
-          <p class="text-xs text-slate-400 max-w-sm mx-auto mt-1">Please enter your Application ID in the field on the left and click "Search Student Profile" to view details.</p>
+          <h3 id="emptyStateTitle" class="text-base font-bold text-slate-800">No Student Profile Loaded</h3>
+          <p id="emptyStateMsg" class="text-xs text-slate-400 max-w-sm mx-auto mt-1">Please enter your Application ID in the field on the left and click "Search Student Profile" to view details.</p>
         </div>
 
         <!-- SEARCH RESULT CARD (INITIALLY HIDDEN) -->
@@ -110,12 +111,8 @@
                 </span>
               </div>
               <div>
-                <h3 id="studentName" class="text-lg font-extrabold tracking-tight uppercase">
-                  SHIVRAJ HANUMANTH KYAGAVI
-                </h3>
-                <p id="studentBranch" class="text-xs text-blue-200 font-medium mt-0.5">
-                  B.Tech. Computer Science & Engineering (AI&ML)
-                </p>
+                <h3 id="studentName" class="text-lg font-extrabold tracking-tight uppercase">-</h3>
+                <p id="studentBranch" class="text-xs text-blue-200 font-medium mt-0.5">-</p>
               </div>
             </div>
 
@@ -133,7 +130,7 @@
                   </div>
                   <div>
                     <span class="block text-[10px] font-medium text-slate-400 leading-none mb-0.5">Division</span>
-                    <span id="studentDiv" class="text-xs font-bold text-slate-800">Pending</span>
+                    <span id="studentDiv" class="text-xs font-bold text-slate-800">-</span>
                   </div>
                 </div>
 
@@ -155,7 +152,7 @@
                   </div>
                   <div>
                     <span class="block text-[10px] font-medium text-slate-400 leading-none mb-0.5">PRN</span>
-                    <span id="studentPRN" class="text-xs font-extrabold text-slate-800">126B1C001</span>
+                    <span id="studentPRN" class="text-xs font-extrabold text-slate-800">-</span>
                   </div>
                 </div>
 
@@ -166,7 +163,7 @@
                   </div>
                   <div>
                     <span class="block text-[10px] font-medium text-slate-400 leading-none mb-0.5">Date of Admission</span>
-                    <span id="admissionDate" class="text-xs font-bold text-slate-800">03-Aug-2026</span>
+                    <span id="admissionDate" class="text-xs font-bold text-slate-800">-</span>
                   </div>
                 </div>
               </div>
@@ -182,7 +179,7 @@
                   </div>
                   <div class="overflow-hidden">
                     <span class="block text-[10px] font-medium text-slate-400 leading-none mb-0.5">College Email ID</span>
-                    <span id="studentEmail" class="text-xs font-bold text-slate-800 truncate block">shivraj.kyagavi26@pccoepune.org</span>
+                    <span id="studentEmail" class="text-xs font-bold text-slate-800 truncate block">-</span>
                   </div>
                 </div>
 
@@ -193,7 +190,7 @@
                   </div>
                   <div>
                     <span class="block text-[10px] font-medium text-slate-400 leading-none mb-0.5">Student Mobile</span>
-                    <span id="studentMobile" class="text-xs font-bold text-slate-800">84******03</span>
+                    <span id="studentMobile" class="text-xs font-bold text-slate-800">-</span>
                   </div>
                 </div>
 
@@ -203,8 +200,8 @@
                     <i class="fa-solid fa-chalkboard-user text-amber-600"></i>
                     <span>Class Teacher Contact</span>
                   </div>
-                  <div class="text-xs font-bold text-slate-800">Pending</div>
-                  <div class="text-[11px] text-slate-500">N/A</div>
+                  <div id="classTeacherName" class="text-xs font-bold text-slate-800">-</div>
+                  <div id="classTeacherMobile" class="text-[11px] text-slate-500">-</div>
                 </div>
               </div>
 
@@ -229,8 +226,6 @@
 
       <!-- TIMELINE GRID STAGES -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        
-        <!-- ROUND 1 -->
         <div class="relative bg-slate-50 border border-slate-200 rounded-xl p-3">
           <span class="absolute -top-2.5 right-3 bg-emerald-600 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1">
             <i class="fa-solid fa-check text-[8px]"></i> Completed
@@ -242,7 +237,6 @@
           </p>
         </div>
 
-        <!-- ROUND 2 -->
         <div class="relative bg-emerald-50/50 border-2 border-emerald-500 rounded-xl p-3">
           <span class="absolute -top-2.5 right-3 bg-red-600 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1">
             <i class="fa-solid fa-circle text-[6px] animate-pulse"></i> In Progress
@@ -254,7 +248,6 @@
           </p>
         </div>
 
-        <!-- ROUND 3 -->
         <div class="relative bg-white border-2 border-blue-600 rounded-xl p-3">
           <span class="block text-[10px] font-black text-amber-600 uppercase tracking-wider">Status: Upcoming</span>
           <h4 class="text-xs font-extrabold text-slate-900 mt-0.5">CAP ROUND III</h4>
@@ -263,7 +256,6 @@
           </p>
         </div>
 
-        <!-- ROUND 4 -->
         <div class="relative bg-white border-2 border-blue-600 rounded-xl p-3">
           <span class="block text-[10px] font-black text-amber-600 uppercase tracking-wider">Status: Upcoming</span>
           <h4 class="text-xs font-extrabold text-slate-900 mt-0.5">CAP ROUND IV</h4>
@@ -271,7 +263,6 @@
             <i class="fa-regular fa-calendar mr-1"></i> 04 Sept – 07 Sept 2026
           </p>
         </div>
-
       </div>
     </div>
 
@@ -283,15 +274,61 @@
   </footer>
 
   <script>
-    function searchStudent() {
-      const id = document.getElementById("appIdInput").value.trim();
-      if(id !== "") {
-        document.getElementById("resAppId").textContent = id;
-        document.getElementById("emptyState").classList.add("hidden");
-        document.getElementById("profileResult").classList.remove("hidden");
-        document.getElementById("profileResult").classList.add("flex");
-      } else {
+    // Replace this with your Google Apps Script Web App Deployment URL
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxlC6JqK1A3LwOMXQMrC8LkuMzcXi421VkRcjgCnC-4HYpOCVLGLYtt8o1xorQTg3kaJg/exec";
+
+    async function searchStudent() {
+      const idInput = document.getElementById("appIdInput").value.trim();
+      const searchBtn = document.getElementById("searchBtn");
+      const emptyState = document.getElementById("emptyState");
+      const profileResult = document.getElementById("profileResult");
+
+      if (!idInput) {
         alert("Please enter an Application ID.");
+        return;
+      }
+
+      // UI state during fetch
+      searchBtn.disabled = true;
+      searchBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Fetching...';
+
+      try {
+        const response = await fetch(`${SCRIPT_URL}?appId=${encodeURIComponent(idInput)}`);
+        const result = await response.json();
+
+        if (result.status === "success") {
+          const student = result.data;
+
+          // Populate student data
+          document.getElementById("studentName").textContent = student.name || "N/A";
+          document.getElementById("studentBranch").textContent = student.program || "N/A";
+          document.getElementById("studentDiv").textContent = student.division || "Pending";
+          document.getElementById("resAppId").textContent = student.applicationId || idInput;
+          document.getElementById("studentPRN").textContent = student.prn || "N/A";
+          document.getElementById("admissionDate").textContent = student.dateOfAdmission || "N/A";
+          document.getElementById("studentEmail").textContent = student.email || "N/A";
+          document.getElementById("studentMobile").textContent = student.mobile || "N/A";
+          document.getElementById("classTeacherName").textContent = student.classTeacher || "N/A";
+          document.getElementById("classTeacherMobile").textContent = student.classTeacherMobile || "N/A";
+
+          // Show Profile Card
+          emptyState.classList.add("hidden");
+          profileResult.classList.remove("hidden");
+          profileResult.classList.add("flex");
+        } else {
+          // Record Not Found
+          profileResult.classList.add("hidden");
+          profileResult.classList.remove("flex");
+          emptyState.classList.remove("hidden");
+          document.getElementById("emptyStateTitle").textContent = "Student Record Not Found";
+          document.getElementById("emptyStateMsg").textContent = result.message || "No student record exists for this Application ID.";
+        }
+      } catch (err) {
+        console.error("Fetch Error:", err);
+        alert("Unable to retrieve records from the server. Verify your deployment URL and internet connection.");
+      } finally {
+        searchBtn.disabled = false;
+        searchBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i><span>Search Student Profile</span>';
       }
     }
   </script>
