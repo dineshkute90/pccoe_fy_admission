@@ -16,12 +16,18 @@
       font-family: 'Plus Jakarta Sans', sans-serif; 
       background-color: #f1f5f9;
     }
+
+    .nav-btn.active {
+      background-color: #1e3a8a;
+      color: #ffffff;
+      box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between overflow-y-auto">
 
   <!-- HEADER -->
-  <header class="shrink-0">
+  <header class="shrink-0 shadow-sm">
     <div class="bg-white border-b border-slate-200 py-3 px-4">
       <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
         <div class="flex items-center gap-4">
@@ -35,6 +41,29 @@
         </div>
       </div>
     </div>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="bg-[#3b66bc] border-t border-b border-blue-800">
+      <div class="max-w-7xl mx-auto px-2">
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-1 py-1 text-white font-bold text-xs md:text-sm">
+          <a href="index.html" class="nav-btn active px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-house text-xs"></i> HOME
+          </a>
+          <a href="induction-program.html" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-graduation-cap text-xs"></i> INDUCTION PROGRAM
+          </a>
+          <a href="first-day-reporting.html" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-clipboard-check text-xs"></i> FIRST DAY REPORTING
+          </a>
+          <a href="https://www.pccoepune.com" target="_blank" rel="noopener noreferrer" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-building-columns text-xs"></i> PCCOE
+          </a>
+          <a href="timetable.html" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-bell text-xs"></i> NOTICES
+          </a>
+        </div>
+      </div>
+    </nav>
   </header>
 
   <!-- MAIN CONTAINER -->
@@ -274,7 +303,6 @@
   </footer>
 
   <script>
-    // Replace this with your Google Apps Script Web App Deployment URL
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxlC6JqK1A3LwOMXQMrC8LkuMzcXi421VkRcjgCnC-4HYpOCVLGLYtt8o1xorQTg3kaJg/exec";
 
     async function searchStudent() {
@@ -288,7 +316,6 @@
         return;
       }
 
-      // UI state during fetch
       searchBtn.disabled = true;
       searchBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Fetching...';
 
@@ -299,7 +326,6 @@
         if (result.status === "success") {
           const student = result.data;
 
-          // Populate student data
           document.getElementById("studentName").textContent = student.name || "N/A";
           document.getElementById("studentBranch").textContent = student.program || "N/A";
           document.getElementById("studentDiv").textContent = student.division || "Pending";
@@ -311,12 +337,10 @@
           document.getElementById("classTeacherName").textContent = student.classTeacher || "N/A";
           document.getElementById("classTeacherMobile").textContent = student.classTeacherMobile || "N/A";
 
-          // Show Profile Card
           emptyState.classList.add("hidden");
           profileResult.classList.remove("hidden");
           profileResult.classList.add("flex");
         } else {
-          // Record Not Found
           profileResult.classList.add("hidden");
           profileResult.classList.remove("flex");
           emptyState.classList.remove("hidden");
