@@ -10,7 +10,10 @@
   
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { 
+      font-family: 'Plus Jakarta Sans', sans-serif; 
+      background-color: #f1f5f9;
+    }
     
     .nav-btn.active {
       background-color: #1e3a8a;
@@ -21,61 +24,53 @@
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between overflow-x-hidden">
 
-  <!-- HEADER CONTAINER -->
-  <header class="shadow-md shrink-0">
+  <!-- HEADER CONTAINER (SAME AS INDEX.HTML) -->
+  <header class="shrink-0 shadow-sm">
     <div class="bg-white border-b border-slate-200 py-3 px-4">
-      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
         <div class="flex items-center gap-4">
           <a href="index.html">
-            <img src="pccoe_logo.png" alt="PCCOE Logo" class="h-14 w-auto object-contain" onerror="this.src='https://via.placeholder.com/80?text=PCCOE'">
+            <img src="pccoe_logo.png" alt="PCCOE Logo" class="h-12 w-auto object-contain" onerror="this.src='https://via.placeholder.com/80?text=PCCOE'">
           </a>
         </div>
         <div class="text-center flex-1">
-          <h3 class="text-xs md:text-sm font-bold text-blue-900 tracking-wider uppercase">PIMPRI CHINCHWAD EDUCATION TRUST'S</h3>
-          <h1 class="text-xl md:text-2xl font-extrabold text-blue-900 tracking-tight my-0.5">PIMPRI CHINCHWAD COLLEGE OF ENGINEERING</h1>
-          <p class="text-[10px] md:text-xs font-semibold text-slate-600">
-            <span class="text-red-700 font-bold">NBA</span> Accredited | 
-            <span class="text-red-700 font-bold">NAAC</span> Accredited with <span class="text-red-700 font-bold">'A'</span> Grade | 
-            An <span class="font-bold">Autonomous Institute</span> | 
-            <span class="font-bold">AICTE</span> Approved | Permanently Affiliated to <span class="font-bold">SPPU</span>, Pune
-          </p>
+          <h3 class="text-[10px] md:text-xs font-bold text-blue-900 tracking-wider uppercase">PIMPRI CHINCHWAD EDUCATION TRUST'S</h3>
+          <h1 class="text-base md:text-xl font-extrabold text-blue-900 tracking-tight my-0">PIMPRI CHINCHWAD COLLEGE OF ENGINEERING</h1>
         </div>
       </div>
     </div>
 
-    <nav class="bg-blue-600">
+    <!-- NAVIGATION BAR -->
+    <nav class="bg-[#3b66bc] border-t border-b border-blue-800">
       <div class="max-w-7xl mx-auto px-2">
         <div class="flex flex-wrap items-center justify-center md:justify-start gap-1 py-1 text-white font-bold text-xs md:text-sm">
-          <a href="index.html" class="nav-btn px-4 py-2 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
-            <i class="fa-solid fa-house mr-1.5"></i> Home
+          <a href="index.html" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-house text-xs"></i> HOME
           </a>
-          <a href="candidate-login.html" class="nav-btn px-4 py-2 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
-            <i class="fa-solid fa-user-lock mr-1.5"></i> Candidate Login
+          <a href="induction-program.html" class="nav-btn active px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-graduation-cap text-xs"></i> INDUCTION PROGRAM
           </a>
-          <a href="induction-program.html" class="nav-btn active px-4 py-2 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
-            <i class="fa-solid fa-graduation-cap mr-1.5"></i> Induction Program
+          <a href="first-day-reporting.html" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-clipboard-check text-xs"></i> FIRST DAY REPORTING
           </a>
-          <a href="timetable.html" class="nav-btn px-4 py-2 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
-            <i class="fa-solid fa-calendar-days mr-1.5"></i> Time Table
+          <a href="https://www.pccoepune.com" target="_blank" rel="noopener noreferrer" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-building-columns text-xs"></i> PCCOE
           </a>
-          <a href="notices.html" class="nav-btn px-4 py-2 rounded-lg hover:bg-blue-700 uppercase tracking-wide">
-            <i class="fa-solid fa-bell mr-1.5"></i> Notices
-          </a>
-          <a href="https://www.pccoepune.com" target="_blank" rel="noopener noreferrer" class="nav-btn px-4 py-2 rounded-lg hover:bg-blue-700 uppercase tracking-wide flex items-center gap-1">
-            <i class="fa-solid fa-globe"></i> PCCOE <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+          <a href="timetable.html" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-bell text-xs"></i> NOTICES
           </a>
         </div>
       </div>
     </nav>
   </header>
 
-  <!-- MAIN CONTENT GRID (EXPANDED LEFT BLOCKS & COMPACT BANNER) -->
+  <!-- MAIN CONTENT GRID -->
   <main class="max-w-7xl mx-auto w-full px-4 py-4 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
     
-    <!-- LEFT SIDEBAR (EXPANDED WIDTH: COL-SPAN 5) -->
+    <!-- LEFT SIDEBAR -->
     <div class="lg:col-span-5 flex flex-col justify-between gap-4">
       
-      <!-- TOP LEFT: NOTE BOX (REMOVED DESCRIPTION TEXT) -->
+      <!-- TOP LEFT: NOTE BOX -->
       <div class="bg-amber-100/90 border-l-4 border-amber-500 p-4 rounded-r-2xl shadow-sm">
         <p class="text-amber-950 text-xs md:text-sm font-bold leading-normal">
           <span class="uppercase tracking-wider font-black">NOTE:</span> All newly admitted students are required to attend. Kindly review the schedule to verify the designated time slot for your respective branch.
@@ -149,10 +144,10 @@
 
     </div>
 
-    <!-- RIGHT PANEL: TITLE BANNER, DATE & VENUE (COL-SPAN 7) -->
+    <!-- RIGHT PANEL: TITLE BANNER, DATE & VENUE -->
     <div class="lg:col-span-7 bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col justify-between">
       
-      <!-- COMPACT TITLE BANNER BLOCK -->
+      <!-- TITLE BANNER BLOCK -->
       <div class="bg-blue-900 py-3 px-4 text-white text-center shrink-0">
         <h3 class="text-base md:text-lg font-extrabold tracking-wide uppercase text-amber-300">
           FIRST YEAR INDUCTION PROGRAM 2026
