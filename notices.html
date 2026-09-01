@@ -24,7 +24,7 @@
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between">
 
-  <!-- HEADER CONTAINER -->
+  <!-- HEADER CONTAINER (EXACT SAME AS INDEX.HTML) -->
   <header class="shrink-0 shadow-sm">
     <div class="bg-white border-b border-slate-200 py-3 px-4">
       <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
@@ -59,6 +59,21 @@
           <a href="https://www.pccoepune.com" target="_blank" rel="noopener noreferrer" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
             <i class="fa-solid fa-building-columns text-xs"></i> PCCOE
           </a>
+          <a href="parent_telegram.html" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-brands fa-telegram text-xs"></i> PARENT TELEGRAM GROUP
+          </a>
+
+          <!-- ADMIN DROPDOWN MENU -->
+          <div class="relative inline-block text-left group">
+            <button class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5 cursor-pointer">
+              <i class="fa-solid fa-user-gear text-xs"></i> ADMIN <i class="fa-solid fa-chevron-down text-[10px]"></i>
+            </button>
+            <div class="absolute left-0 w-48 bg-white text-slate-800 rounded-xl shadow-xl py-2 hidden group-hover:block z-50 border border-slate-100">
+              <a href="admin.html" class="flex items-center gap-2 px-4 py-2 text-xs font-bold hover:bg-blue-50 hover:text-blue-700">
+                <i class="fa-solid fa-file-pdf text-red-600"></i> PDF Extractor
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
