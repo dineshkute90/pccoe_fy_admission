@@ -52,7 +52,6 @@
           <a href="induction-program.html" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
             <i class="fa-solid fa-graduation-cap text-xs"></i> INDUCTION PROGRAM
           </a>
-          <!-- CONNECTED LINK BELOW -->
           <a href="first-day-reporting.html" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
             <i class="fa-solid fa-clipboard-check text-xs"></i> FIRST DAY REPORTING
           </a>
@@ -331,6 +330,19 @@
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxlC6JqK1A3LwOMXQMrC8LkuMzcXi421VkRcjgCnC-4HYpOCVLGLYtt8o1xorQTg3kaJg/exec";
 
+    // Helper function to mask phone number (shows only first 2 and last 2 digits)
+    function maskMobileNumber(phoneStr) {
+      if (!phoneStr) return "N/A";
+      const cleaned = String(phoneStr).trim();
+      if (cleaned.length >= 4) {
+        const firstTwo = cleaned.substring(0, 2);
+        const lastTwo = cleaned.substring(cleaned.length - 2);
+        const maskedMiddle = "*".repeat(cleaned.length - 4);
+        return `${firstTwo}${maskedMiddle}${lastTwo}`;
+      }
+      return cleaned;
+    }
+
     async function searchStudent() {
       const idInput = document.getElementById("appIdInput").value.trim();
       const searchBtn = document.getElementById("searchBtn");
@@ -359,7 +371,10 @@
           document.getElementById("studentPRN").textContent = student.prn || "N/A";
           document.getElementById("admissionDate").textContent = student.dateOfAdmission || "N/A";
           document.getElementById("studentEmail").textContent = student.email || "N/A";
-          document.getElementById("studentMobile").textContent = student.mobile || "N/A";
+          
+          // MASK MOBILE NUMBER (Show first 2 & last 2 digits only)
+          document.getElementById("studentMobile").textContent = maskMobileNumber(student.mobile);
+
           document.getElementById("classTeacherName").textContent = student.classTeacher || "N/A";
           document.getElementById("classTeacherMobile").textContent = student.classTeacherMobile || "N/A";
 
