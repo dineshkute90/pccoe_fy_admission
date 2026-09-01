@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>First Day Reporting & Timetable | PCCOE</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body { 
+      font-family: 'Plus Jakarta Sans', sans-serif; 
+      background-color: #f1f5f9;
+    }
+    
+    .nav-btn.active {
+      background-color: #1e3a8a;
+      color: #ffffff;
+      box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+  <!-- HEADER CONTAINER -->
+  <header class="shrink-0 shadow-sm">
+    <div class="bg-white border-b border-slate-200 py-3 px-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <a href="index.html">
+            <img src="pccoe_logo.png" alt="PCCOE Logo" class="h-12 w-auto object-contain" onerror="this.src='https://via.placeholder.com/80?text=PCCOE'">
+          </a>
+        </div>
+        <div class="text-center flex-1">
+          <h3 class="text-[10px] md:text-xs font-bold text-blue-900 tracking-wider uppercase">PIMPRI CHINCHWAD EDUCATION TRUST'S</h3>
+          <h1 class="text-base md:text-xl font-extrabold text-blue-900 tracking-tight my-0">PIMPRI CHINCHWAD COLLEGE OF ENGINEERING</h1>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="bg-[#3b66bc] border-t border-b border-blue-800">
+      <div class="max-w-7xl mx-auto px-2">
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-1 py-1 text-white font-bold text-xs md:text-sm">
+          <a href="index.html" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-house text-xs"></i> HOME
+          </a>
+          <a href="induction-program.html" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-graduation-cap text-xs"></i> INDUCTION PROGRAM
+          </a>
+          <a href="first-day-reporting.html" class="nav-btn active px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-clipboard-check text-xs"></i> FIRST DAY REPORTING
+          </a>
+          <a href="notices.html" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-bell text-xs"></i> NOTICES
+          </a>
+          <a href="https://www.pccoepune.com" target="_blank" rel="noopener noreferrer" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-building-columns text-xs"></i> PCCOE
+          </a>
+          <a href="parent_telegram.html" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-brands fa-telegram text-xs"></i> PARENT TELEGRAM GROUP
+          </a>
+
+          <!-- ADMIN DROPDOWN MENU -->
+          <div class="relative inline-block text-left group">
+            <button class="nav-btn px-4 py-2 rounded-md hover:bg-blue-800 uppercase tracking-wide flex items-center gap-1.5 cursor-pointer">
+              <i class="fa-solid fa-user-gear text-xs"></i> ADMIN <i class="fa-solid fa-chevron-down text-[10px]"></i>
+            </button>
+            <div class="absolute left-0 w-48 bg-white text-slate-800 rounded-xl shadow-xl py-2 hidden group-hover:block z-50 border border-slate-100">
+              <a href="admin.html" class="flex items-center gap-2 px-4 py-2 text-xs font-bold hover:bg-blue-50 hover:text-blue-700">
+                <i class="fa-solid fa-file-pdf text-red-600"></i> PDF Extractor
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT GRID -->
+  <main class="max-w-7xl mx-auto w-full px-4 py-4 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+    
+    <!-- LEFT PANEL: DIVISION SELECTION & INFO -->
+    <div class="lg:col-span-4 flex flex-col gap-4">
+      
+      <!-- SELECTION BOX CARD -->
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+        <div class="flex items-center gap-2 mb-3 text-blue-900">
+          <i class="fa-solid fa-filter text-lg"></i>
+          <h3 class="text-sm font-extrabold uppercase tracking-wide">Select Your Division</h3>
+        </div>
+        
+        <p class="text-xs text-slate-600 mb-4 font-medium">
+          Choose your allotted division from the dropdown below to view your first day timetable and classroom details.
+        </p>
+
+        <!-- DIVISION DROPDOWN (A TO R) -->
+        <div class="relative">
+          <label for="divisionSelect" class="block text-[11px] font-extrabold text-slate-500 uppercase tracking-wider mb-1">
+            Division (A to R)
+          </label>
+          <div class="relative">
+            <select 
+              id="divisionSelect" 
+              onchange="updateTimetable()" 
+              class="w-full bg-slate-50 border-2 border-blue-600/30 text-blue-950 font-extrabold text-sm rounded-xl py-3 px-4 pr-10 appearance-none focus:outline-none focus:border-blue-700 focus:bg-white cursor-pointer shadow-sm transition-all"
+            >
+              <option value="" disabled selected>-- Choose Division --</option>
+              <option value="A">Division A</option>
+              <option value="B">Division B</option>
+              <option value="C">Division C</option>
+              <option value="D">Division D</option>
+              <option value="E">Division E</option>
+              <option value="F">Division F</option>
+              <option value="G">Division G</option>
+              <option value="H">Division H</option>
+              <option value="I">Division I</option>
+              <option value="J">Division J</option>
+              <option value="K">Division K</option>
+              <option value="L">Division L</option>
+              <option value="M">Division M</option>
+              <option value="N">Division N</option>
+              <option value="O">Division O</option>
+              <option value="P">Division P</option>
+              <option value="Q">Division Q</option>
+              <option value="R">Division R</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-blue-800">
+              <i class="fa-solid fa-chevron-down text-xs"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SELECTED DIVISION HIGHLIGHT CARD -->
+      <div id="divInfoCard" class="bg-gradient-to-br from-blue-900 to-slate-900 text-white p-5 rounded-2xl shadow-md border border-blue-800 hidden">
+        <span class="text-[9px] font-black bg-amber-400 text-blue-950 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+          Division Overview
+        </span>
+        <h2 id="infoDivTitle" class="text-2xl font-black mt-2 mb-1 text-white">Division -</h2>
+        <div class="space-y-2 mt-3 text-xs text-slate-200">
+          <p class="flex items-center gap-2">
+            <i class="fa-solid fa-door-open text-amber-400 w-4"></i> 
+            <span><strong>Classroom:</strong> <span id="infoClassroom">Building A - Room 201</span></span>
+          </p>
+          <p class="flex items-center gap-2">
+            <i class="fa-solid fa-user-tie text-amber-400 w-4"></i> 
+            <span><strong>Class Teacher:</strong> <span id="infoTeacher">Prof. Dr. S. Sharma</span></span>
+          </p>
+          <p class="flex items-center gap-2">
+            <i class="fa-solid fa-clock text-amber-400 w-4"></i> 
+            <span><strong>First Day Reporting:</strong> 09:00 AM Sharp</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- INSTRUCTIONS NOTE -->
+      <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-2xl shadow-sm space-y-1.5">
+        <h5 class="text-xs font-black text-amber-900 uppercase tracking-wide flex items-center gap-1.5">
+          <i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Reporting Instructions
+        </h5>
+        <ul class="text-[11px] font-bold text-amber-950 space-y-1 pl-1">
+          <li>• Carry your original admission fee receipt & allotment letter.</li>
+          <li>• Report at least 15 minutes before your scheduled class time.</li>
+          <li>• Mobile phones must be kept in silent mode inside classrooms.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- RIGHT PANEL: TIMETABLE DISPLAY AREA -->
+    <div class="lg:col-span-8 bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden min-h-[480px] flex flex-col justify-between">
+      
+      <!-- DEFAULT PLACEHOLDER STATE -->
+      <div id="placeholderState" class="p-8 my-auto text-center flex flex-col items-center justify-center space-y-3">
+        <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-2xl shadow-inner border border-blue-100">
+          <i class="fa-solid fa-calendar-week"></i>
+        </div>
+        <h3 class="text-base font-extrabold text-slate-800">No Division Selected</h3>
+        <p class="text-xs text-slate-500 max-w-sm">
+          Please select your division from the dropdown menu on the left to display your complete first day reporting schedule and timetable.
+        </p>
+      </div>
+
+      <!-- TIMETABLE DISPLAY CONTAINER (HIDDEN UNTIL SELECTED) -->
+      <div id="timetableState" class="hidden flex-1 flex flex-col justify-between">
+        
+        <!-- TIMETABLE HEADER -->
+        <div class="bg-blue-900 text-white p-4 px-6 flex flex-wrap items-center justify-between gap-3 shrink-0">
+          <div>
+            <span class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">F.Y. B.Tech. Semester I (2026–27)</span>
+            <h3 id="ttHeaderTitle" class="text-lg font-black tracking-tight">Timetable for Division A</h3>
+          </div>
+          <button onclick="window.print()" class="bg-white/10 hover:bg-white/20 active:scale-95 text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/20 flex items-center gap-1.5 transition-all">
+            <i class="fa-solid fa-print"></i> Print Schedule
+          </button>
+        </div>
+
+        <!-- TIMETABLE TABLE -->
+        <div class="p-4 md:p-6 overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-100 border-b border-slate-200 text-slate-700 font-extrabold uppercase text-[10px] tracking-wider">
+                <th class="py-3 px-3">Time Slot</th>
+                <th class="py-3 px-3">Subject / Session</th>
+                <th class="py-3 px-3">Faculty / Conducted By</th>
+                <th class="py-3 px-3">Venue</th>
+              </tr>
+            </thead>
+            <tbody id="ttBody" class="divide-y divide-slate-100 font-medium text-slate-800">
+              <!-- Dynamic Rows inserted via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- FOOTER BAR INSIDE CARD -->
+        <div class="bg-slate-50 border-t border-slate-200 p-3 px-6 text-[11px] text-slate-500 flex justify-between items-center">
+          <span>Department of Applied Sciences & Humanities</span>
+          <span class="font-bold text-blue-900"><i class="fa-solid fa-circle-info mr-1"></i> Subject to minor updates on Day 1</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 py-3 text-center text-[11px] border-t border-slate-800 shrink-0">
+    <p>© 2026 Pimpri Chinchwad College of Engineering (PCCOE). All Rights Reserved.</p>
+    <p class="mt-0.5 text-slate-500">Department of Applied Sciences & Humanities</p>
+  </footer>
+
+  <!-- DYNAMIC TIMETABLE SCRIPT -->
+  <script>
+    // Sample Data for Divisions A to R
+    const classData = {
+      'A': { room: 'Building A - Room 101', teacher: 'Dr. A. B. Patil', group: 'Morning Group' },
+      'B': { room: 'Building A - Room 102', teacher: 'Prof. S. R. Kulkarni', group: 'Morning Group' },
+      'C': { room: 'Building A - Room 103', teacher: 'Dr. M. N. Joshi', group: 'Morning Group' },
+      'D': { room: 'Building A - Room 104', teacher: 'Prof. V. S. Deshmukh', group: 'Morning Group' },
+      'E': { room: 'Building A - Room 105', teacher: 'Dr. P. K. Shinde', group: 'Morning Group' },
+      'F': { room: 'Building B - Room 201', teacher: 'Prof. R. T. More', group: 'Morning Group' },
+      'G': { room: 'Building B - Room 202', teacher: 'Dr. S. A. Pawar', group: 'Morning Group' },
+      'H': { room: 'Building B - Room 203', teacher: 'Prof. D. E. Gaikwad', group: 'Morning Group' },
+      'I': { room: 'Building B - Room 204', teacher: 'Dr. N. G. Bhosale', group: 'Morning Group' },
+      'J': { room: 'Building B - Room 205', teacher: 'Prof. K. L. Mehta', group: 'Afternoon Group' },
+      'K': { room: 'Building C - Room 301', teacher: 'Dr. H. V. Agarwal', group: 'Afternoon Group' },
+      'L': { room: 'Building C - Room 302', teacher: 'Prof. G. M. Kadam', group: 'Afternoon Group' },
+      'M': { room: 'Building C - Room 303', teacher: 'Dr. U. S. Chaugule', group: 'Afternoon Group' },
+      'N': { room: 'Building C - Room 304', teacher: 'Prof. Y. P. Wagh', group: 'Afternoon Group' },
+      'O': { room: 'Building C - Room 305', teacher: 'Dr. Z. R. Khan', group: 'Afternoon Group' },
+      'P': { room: 'Building D - Room 401', teacher: 'Prof. T. B. Salunkhe', group: 'Afternoon Group' },
+      'Q': { room: 'Building D - Room 402', teacher: 'Dr. C. D. Kamble', group: 'Afternoon Group' },
+      'R': { room: 'Building D - Room 403', teacher: 'Prof. S. M. Mane', group: 'Afternoon Group' }
+    };
+
+    const sampleTimetable = [
+      { time: '09:00 AM - 10:00 AM', subject: 'Welcome & Department Address', faculty: 'Head of Department (AS&H)', venue: 'Classroom' },
+      { time: '10:00 AM - 11:00 AM', subject: 'Engineering Physics / Chemistry', faculty: 'Subject Faculty', venue: 'Classroom' },
+      { time: '11:00 AM - 12:00 PM', subject: 'Engineering Mathematics-I', faculty: 'Maths Faculty', venue: 'Classroom' },
+      { time: '12:00 PM - 01:00 PM', subject: 'Lunch Break & Peer Interaction', faculty: 'Student Mentors', venue: 'College Canteen' },
+      { time: '01:00 PM - 03:00 PM', subject: 'Campus & Lab Orientation Tour', faculty: 'Class Teacher & Mentors', venue: 'Respective Labs' },
+      { time: '03:00 PM - 04:00 PM', subject: 'ERP Registration & Document Verification', faculty: 'Admin Staff', venue: 'Computer Center' }
+    ];
+
+    function updateTimetable() {
+      const select = document.getElementById('divisionSelect');
+      const div = select.value;
+
+      if (!div) return;
+
+      const info = classData[div] || { room: 'Building A - Main Block', teacher: 'Faculty Coordinator', group: 'Standard' };
+
+      // Update Info Card
+      document.getElementById('infoDivTitle').innerText = 'Division ' + div;
+      document.getElementById('infoClassroom').innerText = info.room;
+      document.getElementById('infoTeacher').innerText = info.teacher;
+      document.getElementById('divInfoCard').classList.remove('hidden');
+
+      // Update Timetable Header
+      document.getElementById('ttHeaderTitle').innerText = 'First Day Timetable — Division ' + div;
+
+      // Render Timetable Rows
+      const tbody = document.getElementById('ttBody');
+      tbody.innerHTML = '';
+
+      sampleTimetable.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50/80 transition-colors';
+        tr.innerHTML = `
+          <td class="py-3.5 px-3 font-bold text-blue-900 border-b border-slate-100">${row.time}</td>
+          <td class="py-3.5 px-3 font-extrabold text-slate-800 border-b border-slate-100">${row.subject}</td>
+          <td class="py-3.5 px-3 text-slate-600 border-b border-slate-100">${row.faculty}</td>
+          <td class="py-3.5 px-3 border-b border-slate-100">
+            <span class="bg-slate-100 text-slate-700 font-bold px-2 py-1 rounded text-[10px]">${row.venue === 'Classroom' ? info.room : row.venue}</span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Switch Panels
+      document.getElementById('placeholderState').classList.add('hidden');
+      document.getElementById('timetableState').classList.remove('hidden');
+    }
+  </script>
+
+</body>
+</html>
