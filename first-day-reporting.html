@@ -142,12 +142,16 @@
         <h2 id="infoDivTitle" class="text-2xl font-black mt-2 mb-1 text-white">Division -</h2>
         <div class="space-y-2 mt-3 text-xs text-slate-200">
           <p class="flex items-center gap-2">
+            <i class="fa-solid fa-book text-amber-400 w-4"></i> 
+            <span><strong>Program:</strong> <span id="infoProgram">Mechanical</span></span>
+          </p>
+          <p class="flex items-center gap-2">
             <i class="fa-solid fa-door-open text-amber-400 w-4"></i> 
-            <span><strong>Classroom:</strong> <span id="infoClassroom">Building A - Room 201</span></span>
+            <span><strong>Classroom:</strong> <span id="infoClassroom">6509CR, 5th Floor, Building No. 6</span></span>
           </p>
           <p class="flex items-center gap-2">
             <i class="fa-solid fa-user-tie text-amber-400 w-4"></i> 
-            <span><strong>Class Teacher:</strong> <span id="infoTeacher">Prof. Dr. S. Sharma</span></span>
+            <span><strong>Class Teacher:</strong> <span id="infoTeacher">Dr. Rajesh Talekar</span></span>
           </p>
           <p class="flex items-center gap-2">
             <i class="fa-solid fa-clock text-amber-400 w-4"></i> 
@@ -190,7 +194,7 @@
         <!-- TIMETABLE HEADER -->
         <div class="bg-blue-900 text-white p-4 px-6 flex flex-wrap items-center justify-between gap-3 shrink-0">
           <div>
-            <span class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">F.Y. B.Tech. Semester I (2026–27)</span>
+            <span id="ttSubHeader" class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">DATE: 17/09/2026 | Program: Mechanical</span>
             <h3 id="ttHeaderTitle" class="text-lg font-black tracking-tight">Timetable for Division A</h3>
           </div>
           <button onclick="window.print()" class="bg-white/10 hover:bg-white/20 active:scale-95 text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/20 flex items-center gap-1.5 transition-all">
@@ -235,36 +239,53 @@
 
   <!-- DYNAMIC TIMETABLE SCRIPT -->
   <script>
-    // Sample Data for Divisions A to R
+    const venueAddress = '6509CR, 5th Floor, Building No. 6';
+
     const classData = {
-      'A': { room: '6401, 4th Floor, Building No. 6', teacher: 'Dr. Rajesh Talekar', group: 'Morning Group' },
-      'B': { room: '6401, 4th Floor, Building No. 6', teacher: 'Dr. Nishi Gupta', group: 'Morning Group' },
-      'C': { room: '6401, 4th Floor, Building No. 6', teacher: 'Dr. Viveka Godse', group: 'Morning Group' },
-      'D': { room: '6401, 4th Floor, Building No. 6', teacher: 'Mr. Bhausaheb Sanap', group: 'Morning Group' },
-      'E': { room: '6401, 4th Floor, Building No. 6', teacher: 'Mrs. Pooja Potdar', group: 'Morning Group' },
-      'F': { room: '6401, 4th Floor, Building No. 6', teacher: 'Mrs. Prajakta Pendam', group: 'Morning Group' },
-      'G': { room: '6401, 4th Floor, Building No. 6', teacher: 'Mrs. Rebbeca Jorge', group: 'Morning Group' },
-      'H': { room: '6401, 4th Floor, Building No. 6', teacher: 'Dr. Neha Sharma', group: 'Morning Group' },
-      'I': { room: '6401, 4th Floor, Building No. 6', teacher: 'Dr. Ganesh Munde', group: 'Morning Group' },
-      'J': { room: '6401, 4th Floor, Building No. 6', teacher: 'Mrs. Manjusha Devkule', group: 'Afternoon Group' },
-      'K': { room: '6401, 4th Floor, Building No. 6', teacher: 'Mr. Sachin Shinde', group: 'Afternoon Group' },
-      'L': { room: '6401, 4th Floor, Building No. 6', teacher: 'New', group: 'Afternoon Group' },
-      'M': { room: '6401, 4th Floor, Building No. 6', teacher: 'Dr. Amruta Patil', group: 'Afternoon Group' },
-      'N': { room: '6401, 4th Floor, Building No. 6', teacher: 'Mr. Sanjay Mapari', group: 'Afternoon Group' },
-      'O': { room: '6401, 4th Floor, Building No. 6', teacher: 'Mrs. Vithika Sidhabhatti', group: 'Afternoon Group' },
-      'P': { room: '6401, 4th Floor, Building No. 6', teacher: 'Dr. Jayashri Lohar', group: 'Afternoon Group' },
-      'Q': { room: '6401, 4th Floor, Building No. 6', teacher: 'Dr. Brijesh Deshmukh', group: 'Afternoon Group' },
-      'R': { room: '6401, 4th Floor, Building No. 6', teacher: 'Mrs.Geetanjali Zambare', group: 'Afternoon Group' }
+      'A': { room: venueAddress, teacher: 'Dr. Rajesh Talekar', program: 'Mechanical', date: '17/09/2026' },
+      'B': { room: venueAddress, teacher: 'Dr. Nishi Gupta', program: 'Mechanical', date: '17/09/2026' },
+      'C': { room: venueAddress, teacher: 'Dr. Viveka Godse', program: 'Mechanical', date: '17/09/2026' },
+      'D': { room: venueAddress, teacher: 'Mr. Bhausaheb Sanap', program: 'E&TC', date: '17/09/2026' },
+      'E': { room: venueAddress, teacher: 'Mrs. Pooja Potdar', program: 'E&TC', date: '17/09/2026' },
+      'F': { room: venueAddress, teacher: 'Mrs. Prajakta Pendam', program: 'E&TC', date: '17/09/2026' },
+      'G': { room: venueAddress, teacher: 'Mrs. Rebbeca Jorge', program: 'E&TC VLSI', date: '17/09/2026' },
+      'H': { room: venueAddress, teacher: 'Dr. Neha Sharma', program: 'Civil', date: '17/09/2026' },
+      'I': { room: venueAddress, teacher: 'Dr. Ganesh Munde', program: 'Civil-Regional', date: '17/09/2026' },
+      'J': { room: venueAddress, teacher: 'Mrs. Manjusha Devkule', program: 'Computer', date: '17/09/2026' },
+      'K': { room: venueAddress, teacher: 'Mr. Sachin Shinde', program: 'Computer', date: '17/09/2026' },
+      'L': { room: venueAddress, teacher: 'New', program: 'Computer', date: '17/09/2026' },
+      'M': { room: venueAddress, teacher: 'Dr. Amruta Patil', program: 'Computer', date: '17/09/2026' },
+      'N': { room: venueAddress, teacher: 'Mr. Sanjay Mapari', program: 'Comp-Regional', date: '17/09/2026' },
+      'O': { room: venueAddress, teacher: 'Mrs. Vithika Sidhabhatti', program: 'IT', date: '17/09/2026' },
+      'P': { room: venueAddress, teacher: 'Dr. Jayashri Lohar', program: 'IT', date: '17/09/2026' },
+      'Q': { room: venueAddress, teacher: 'Dr. Brijesh Deshmukh', program: 'AI-ML', date: '17/09/2026' },
+      'R': { room: venueAddress, teacher: 'Mrs.Geetanjali Zambare', program: 'AI-ML', date: '17/09/2026' }
     };
 
-    const sampleTimetable = [
-      { time: '09:00 AM - 10:00 AM', subject: 'Welcome & Department Address', faculty: 'Head of Department (AS&H)', venue: 'Classroom' },
-      { time: '10:00 AM - 11:00 AM', subject: 'Engineering Physics / Chemistry', faculty: 'Subject Faculty', venue: 'Classroom' },
-      { time: '11:00 AM - 12:00 PM', subject: 'Engineering Mathematics-I', faculty: 'Maths Faculty', venue: 'Classroom' },
-      { time: '12:00 PM - 01:00 PM', subject: 'Lunch Break & Peer Interaction', faculty: 'Student Mentors', venue: 'College Canteen' },
-      { time: '01:00 PM - 03:00 PM', subject: 'Campus & Lab Orientation Tour', faculty: 'Class Teacher & Mentors', venue: 'Respective Labs' },
-      { time: '03:00 PM - 04:00 PM', subject: 'ERP Registration & Document Verification', faculty: 'Admin Staff', venue: 'Computer Center' }
+    // Shared Group 1 Schedule (Divisions A, B, C, D, E, F, G, H)
+    const group1Schedule = [
+      { time: '09:00 AM - 10:00 AM', subject: 'Class Teacher Presentation', useClassTeacher: true, venue: venueAddress },
+      { time: '10:00 AM - 10:30 AM', subject: 'FESA Interaction', faculty: 'FESA Team', venue: venueAddress },
+      { time: '10:30 AM - 10:40 AM', isBreak: true, label: 'Short Break' },
+      { time: '10:40 AM - 11:30 AM', subject: 'Engineering Mechanics', faculty: 'PVK', venue: venueAddress },
+      { time: '11:30 AM - 12:20 PM', subject: 'Engineering Chemistry', faculty: 'SSS', venue: venueAddress },
+      { time: '12:20 PM - 01:10 PM', subject: 'Elements of Civil Engineering', faculty: 'TSK', venue: venueAddress }
     ];
+
+    // Shared Group 2 Schedule (Divisions I, J, K, L, M, N, O, P, Q, R)
+    const group2Schedule = [
+      { time: '09:00 AM - 10:00 AM', subject: 'Class Teacher Presentation', useClassTeacher: true, venue: venueAddress },
+      { time: '10:00 AM - 10:30 AM', subject: 'FESA Interaction', faculty: 'FESA Team', venue: venueAddress },
+      { time: '10:30 AM - 10:40 AM', isBreak: true, label: 'Short Break' },
+      { time: '10:40 AM - 11:30 AM', subject: 'Elements of Civil Engineering', faculty: 'STM', venue: venueAddress },
+      { time: '11:30 AM - 12:20 PM', subject: 'Linear Algebra & Univariate Calculus', faculty: 'DBK', venue: venueAddress },
+      { time: '12:20 PM - 01:10 PM', subject: 'Engineering Chemistry', faculty: 'RTJ', venue: venueAddress }
+    ];
+
+    function getTimetableForDivision(div) {
+      const g1Divisions = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+      return g1Divisions.includes(div) ? group1Schedule : group2Schedule;
+    }
 
     function updateTimetable() {
       const select = document.getElementById('divisionSelect');
@@ -272,32 +293,48 @@
 
       if (!div) return;
 
-      const info = classData[div] || { room: 'Building A - Main Block', teacher: 'Faculty Coordinator', group: 'Standard' };
+      const info = classData[div];
 
       // Update Info Card
       document.getElementById('infoDivTitle').innerText = 'Division ' + div;
       document.getElementById('infoClassroom').innerText = info.room;
       document.getElementById('infoTeacher').innerText = info.teacher;
+      document.getElementById('infoProgram').innerText = info.program;
       document.getElementById('divInfoCard').classList.remove('hidden');
 
       // Update Timetable Header
       document.getElementById('ttHeaderTitle').innerText = 'First Day Timetable — Division ' + div;
+      document.getElementById('ttSubHeader').innerText = `DATE: ${info.date} | Program: ${info.program}`;
+
+      // Get division schedule
+      const timetableToDisplay = getTimetableForDivision(div);
 
       // Render Timetable Rows
       const tbody = document.getElementById('ttBody');
       tbody.innerHTML = '';
 
-      sampleTimetable.forEach(row => {
+      timetableToDisplay.forEach(row => {
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50/80 transition-colors';
-        tr.innerHTML = `
-          <td class="py-3.5 px-3 font-bold text-blue-900 border-b border-slate-100">${row.time}</td>
-          <td class="py-3.5 px-3 font-extrabold text-slate-800 border-b border-slate-100">${row.subject}</td>
-          <td class="py-3.5 px-3 text-slate-600 border-b border-slate-100">${row.faculty}</td>
-          <td class="py-3.5 px-3 border-b border-slate-100">
-            <span class="bg-slate-100 text-slate-700 font-bold px-2 py-1 rounded text-[10px]">${row.venue === 'Classroom' ? info.room : row.venue}</span>
-          </td>
-        `;
+        
+        if (row.isBreak) {
+          tr.className = 'bg-amber-100/70 font-bold text-amber-950 text-center';
+          tr.innerHTML = `
+            <td class="py-2.5 px-3 border-b border-amber-200 text-blue-900">${row.time}</td>
+            <td colspan="3" class="py-2.5 px-3 border-b border-amber-200 tracking-wider uppercase text-[11px]">${row.label}</td>
+          `;
+        } else {
+          tr.className = 'hover:bg-slate-50/80 transition-colors';
+          const facultyName = row.useClassTeacher ? info.teacher : row.faculty;
+          tr.innerHTML = `
+            <td class="py-3.5 px-3 font-bold text-blue-900 border-b border-slate-100">${row.time}</td>
+            <td class="py-3.5 px-3 font-extrabold text-slate-800 border-b border-slate-100">${row.subject}</td>
+            <td class="py-3.5 px-3 text-slate-600 border-b border-slate-100">${facultyName}</td>
+            <td class="py-3.5 px-3 border-b border-slate-100">
+              <span class="bg-slate-100 text-slate-700 font-bold px-2 py-1 rounded text-[10px]">${row.venue}</span>
+            </td>
+          `;
+        }
+        
         tbody.appendChild(tr);
       });
 
