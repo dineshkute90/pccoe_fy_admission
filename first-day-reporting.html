@@ -143,19 +143,19 @@
         <div class="space-y-2 mt-3 text-xs text-slate-200">
           <p class="flex items-center gap-2">
             <i class="fa-solid fa-book text-amber-400 w-4"></i> 
-            <span><strong>Program:</strong> <span id="infoProgram">Mechanical</span></span>
+            <span><strong>Program:</strong> <span id="infoProgram">Mech</span></span>
           </p>
           <p class="flex items-center gap-2">
             <i class="fa-solid fa-door-open text-amber-400 w-4"></i> 
-            <span><strong>Classroom:</strong> <span id="infoClassroom">6509CR, 5th Floor, Building No. 6</span></span>
+            <span><strong>Classroom:</strong> <span id="infoClassroom">6401CR</span></span>
           </p>
           <p class="flex items-center gap-2">
             <i class="fa-solid fa-user-tie text-amber-400 w-4"></i> 
-            <span><strong>Class Teacher:</strong> <span id="infoTeacher">Dr. Rajesh Talekar</span></span>
+            <span><strong>Class Teacher:</strong> <span id="infoTeacher">Dr. Rajesh Talekar (+91 9921917663)</span></span>
           </p>
           <p class="flex items-center gap-2">
             <i class="fa-solid fa-clock text-amber-400 w-4"></i> 
-            <span><strong>First Day Reporting:</strong> 09:00 AM Sharp</span>
+            <span><strong>First Day Reporting:</strong> <span id="infoReportingTime">09:10 AM Sharp</span></span>
           </p>
         </div>
       </div>
@@ -194,7 +194,7 @@
         <!-- TIMETABLE HEADER -->
         <div class="bg-blue-900 text-white p-4 px-6 flex flex-wrap items-center justify-between gap-3 shrink-0">
           <div>
-            <span id="ttSubHeader" class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">DATE: 17/09/2026 | Program: Mechanical</span>
+            <span id="ttSubHeader" class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">DATE: Thursday, 17 September 2026 | Program: Mech</span>
             <h3 id="ttHeaderTitle" class="text-lg font-black tracking-tight">Timetable for Division A</h3>
           </div>
           <button onclick="window.print()" class="bg-white/10 hover:bg-white/20 active:scale-95 text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/20 flex items-center gap-1.5 transition-all">
@@ -208,8 +208,8 @@
             <thead>
               <tr class="bg-slate-100 border-b border-slate-200 text-slate-700 font-extrabold uppercase text-[10px] tracking-wider">
                 <th class="py-3 px-3">Time Slot</th>
-                <th class="py-3 px-3">Subject / Session</th>
-                <th class="py-3 px-3">Faculty / Conducted By</th>
+                <th class="py-3 px-3">Subject</th>
+                <th class="py-3 px-3">Faculty Code</th>
                 <th class="py-3 px-3">Venue</th>
               </tr>
             </thead>
@@ -239,52 +239,188 @@
 
   <!-- DYNAMIC TIMETABLE SCRIPT -->
   <script>
-    const venueAddress = '6509CR, 5th Floor, Building No. 6';
-
-    const classData = {
-      'A': { room: venueAddress, teacher: 'Dr. Rajesh Talekar', program: 'Mechanical', date: '17/09/2026' },
-      'B': { room: venueAddress, teacher: 'Dr. Nishi Gupta', program: 'Mechanical', date: '17/09/2026' },
-      'C': { room: venueAddress, teacher: 'Dr. Viveka Godse', program: 'Mechanical', date: '17/09/2026' },
-      'D': { room: venueAddress, teacher: 'Mr. Bhausaheb Sanap', program: 'E&TC', date: '17/09/2026' },
-      'E': { room: venueAddress, teacher: 'Mrs. Pooja Potdar', program: 'E&TC', date: '17/09/2026' },
-      'F': { room: venueAddress, teacher: 'Mrs. Prajakta Pendam', program: 'E&TC', date: '17/09/2026' },
-      'G': { room: venueAddress, teacher: 'Mrs. Rebbeca Jorge', program: 'E&TC VLSI', date: '17/09/2026' },
-      'H': { room: venueAddress, teacher: 'Dr. Neha Sharma', program: 'Civil', date: '17/09/2026' },
-      'I': { room: venueAddress, teacher: 'Dr. Ganesh Munde', program: 'Civil-Regional', date: '17/09/2026' },
-      'J': { room: venueAddress, teacher: 'Mrs. Manjusha Devkule', program: 'Computer', date: '17/09/2026' },
-      'K': { room: venueAddress, teacher: 'Mr. Sachin Shinde', program: 'Computer', date: '17/09/2026' },
-      'L': { room: venueAddress, teacher: 'New', program: 'Computer', date: '17/09/2026' },
-      'M': { room: venueAddress, teacher: 'Dr. Amruta Patil', program: 'Computer', date: '17/09/2026' },
-      'N': { room: venueAddress, teacher: 'Mr. Sanjay Mapari', program: 'Comp-Regional', date: '17/09/2026' },
-      'O': { room: venueAddress, teacher: 'Mrs. Vithika Sidhabhatti', program: 'IT', date: '17/09/2026' },
-      'P': { room: venueAddress, teacher: 'Dr. Jayashri Lohar', program: 'IT', date: '17/09/2026' },
-      'Q': { room: venueAddress, teacher: 'Dr. Brijesh Deshmukh', program: 'AI-ML', date: '17/09/2026' },
-      'R': { room: venueAddress, teacher: 'Mrs.Geetanjali Zambare', program: 'AI-ML', date: '17/09/2026' }
+    const subjectAbbreviations = {
+      'LAUC': 'Linear Algebra & Univariate Calculus',
+      'ECH': 'Engineering Chemistry',
+      'COI': 'Constitution of India',
+      'FES': 'Fundamentals of Electromechanical Systems',
+      'BME': 'Basic Mechanical Engineering',
+      'EG': 'Engineering Graphics',
+      'EM': 'Engineering Mechanics',
+      'ECE': 'Elements of Civil Engineering',
+      'FEE': 'Fundamentals of Electrical Engineering',
+      'PPS': 'Programming for Problem-Solving',
+      'EPH': 'Engineering Physics',
+      'CTPS': 'Computer thinking and Problem-Solving',
+      'DECO': 'Digital Electronics and Computer Organization',
+      'WDL': 'Web development Lab',
+      'DELD': 'Digital Electronics and Logic Design',
+      'DM': 'Discrete Mathematics',
+      'DEL': 'Digital Electronics Laboratory',
+      'PSCP': 'ProblEM-Solving with C Programming',
+      'PHY': 'Engineering Physics'
     };
 
-    // Shared Group 1 Schedule (Divisions A, B, C, D, E, F, G, H)
-    const group1Schedule = [
-      { time: '09:00 AM - 10:00 AM', subject: 'Class Teacher Presentation', useClassTeacher: true, venue: venueAddress },
-      { time: '10:00 AM - 10:30 AM', subject: 'FESA Interaction', faculty: 'FESA Team', venue: venueAddress },
-      { time: '10:30 AM - 10:40 AM', isBreak: true, label: 'Short Break' },
-      { time: '10:40 AM - 11:30 AM', subject: 'Engineering Mechanics', faculty: 'PVK', venue: venueAddress },
-      { time: '11:30 AM - 12:20 PM', subject: 'Engineering Chemistry', faculty: 'SSS', venue: venueAddress },
-      { time: '12:20 PM - 01:10 PM', subject: 'Elements of Civil Engineering', faculty: 'TSK', venue: venueAddress }
-    ];
+    const classData = {
+      'A': { group: 'A', room: '6401CR', teacher: 'Dr. Rajesh Talekar (+91 9921917663)', program: 'Mech', date: 'Thursday, 17 September 2026' },
+      'B': { group: 'A', room: '6402CR', teacher: 'Mrs. Geetanjali Zambare (+91 9688904949)', program: 'Mech', date: 'Thursday, 17 September 2026' },
+      'C': { group: 'A', room: '6405CR', teacher: 'Dr. Viveka Godse (+91 9923215484)', program: 'Mech', date: 'Thursday, 17 September 2026' },
+      'D': { group: 'A', room: '6406CR', teacher: 'Mr. Bhausaheb Sanap (+91 7972081208)', program: 'E & TC', date: 'Thursday, 17 September 2026' },
+      'E': { group: 'A', room: '6409CR', teacher: 'Mrs. Pooja Potdar (+91 9890690748)', program: 'E & TC', date: 'Thursday, 17 September 2026' },
+      'F': { group: 'A', room: '6501CR', teacher: 'Mrs. Prajakta Pendam (+91 7620973966)', program: 'E & TC', date: 'Thursday, 17 September 2026' },
+      'G': { group: 'A', room: '6502CR', teacher: 'Mrs. Rebbeca Jorge (+91 9049097603)', program: 'VLSI', date: 'Thursday, 17 September 2026' },
+      'H': { group: 'A', room: '6509CR', teacher: 'Dr. Neha Sharma (+91 7507696633)', program: 'Civil', date: 'Thursday, 17 September 2026' },
+      'I': { group: 'A', room: '6510CR', teacher: 'Dr. Ganesh Munde (+91 9850161934)', program: 'Civil-R', date: 'Thursday, 17 September 2026' },
+      'J': { group: 'B', room: '6401CR', teacher: 'Mrs. Munjusha Deevkhule (+91 9766902486)', program: 'Comp', date: 'Thursday, 17 September 2026' },
+      'K': { group: 'B', room: '6402CR', teacher: 'Mr. Sachin Shinde (+91 9561405540)', program: 'Comp', date: 'Thursday, 17 September 2026' },
+      'L': { group: 'B', room: '6405CR', teacher: 'Ms. Richa Tiwari', program: 'Comp', date: 'Thursday, 17 September 2026' },
+      'M': { group: 'B', room: '6406CR', teacher: 'Dr. Amruta Patil (+91 8390902453)', program: 'Comp', date: 'Thursday, 17 September 2026' },
+      'N': { group: 'B', room: '6409CR', teacher: 'Mr. Sanjay Mapari (+91 9881040504)', program: 'Comp-R', date: 'Thursday, 17 September 2026' },
+      'O': { group: 'B', room: '6501CR', teacher: 'Mrs. Vithika Sidbhatti (+91 9673782761)', program: 'IT', date: 'Thursday, 17 September 2026' },
+      'P': { group: 'B', room: '6502CR', teacher: 'Dr. Jayshree Lohar (+91 9890802737)', program: 'IT', date: 'Thursday, 17 September 2026' },
+      'Q': { group: 'B', room: '6509CR', teacher: 'Dr. Nishi Gupta (+91 9049549668)', program: 'AIML', date: 'Thursday, 17 September 2026' },
+      'R': { group: 'B', room: '6510CR', teacher: 'Dr. Brijesh Deshmukh (+91 9762235772)', program: 'AIML', date: 'Thursday, 17 September 2026' }
+    };
 
-    // Shared Group 2 Schedule (Divisions I, J, K, L, M, N, O, P, Q, R)
-    const group2Schedule = [
-      { time: '09:00 AM - 10:00 AM', subject: 'Class Teacher Presentation', useClassTeacher: true, venue: venueAddress },
-      { time: '10:00 AM - 10:30 AM', subject: 'FESA Interaction', faculty: 'FESA Team', venue: venueAddress },
-      { time: '10:30 AM - 10:40 AM', isBreak: true, label: 'Short Break' },
-      { time: '10:40 AM - 11:30 AM', subject: 'Elements of Civil Engineering', faculty: 'STM', venue: venueAddress },
-      { time: '11:30 AM - 12:20 PM', subject: 'Linear Algebra & Univariate Calculus', faculty: 'DBK', venue: venueAddress },
-      { time: '12:20 PM - 01:10 PM', subject: 'Engineering Chemistry', faculty: 'RTJ', venue: venueAddress }
-    ];
+    // Group A Timetable Schedule (Divisions A to I)
+    const divisionSchedulesGroupA = {
+      'A': [
+        { time: '9:10-10.00 am', subject: 'FES', faculty: 'PPM', venue: '6401CR' },
+        { time: '10.00-10.50 am', subject: 'COI', faculty: 'VAG', venue: '6401CR' },
+        { time: '10.50-11.00 am', isBreak: true, label: 'Break' },
+        { time: '11:00-11:50 am', subject: 'ECH', faculty: 'PPJ', venue: '6401CR' },
+        { time: '11:50-12:40 pm', subject: 'LAUC', faculty: 'RGT', venue: '6401CR' }
+      ],
+      'B': [
+        { time: '9:10-10.00 am', subject: 'LAUC', faculty: 'NGU', venue: '6402CR' },
+        { time: '10.00-10.50 am', subject: 'FES', faculty: 'JAG', venue: '6402CR' },
+        { time: '10.50-11.00 am', isBreak: true, label: 'Break' },
+        { time: '11:00-11:50 am', subject: 'BME', faculty: 'GSW', venue: '6402CR' },
+        { time: '11:50-12:40 pm', subject: 'ECH', faculty: 'PPJ', venue: '6402CR' }
+      ],
+      'C': [
+        { time: '9:10-10.00 am', subject: 'FES', faculty: 'JAG', venue: '6405CR' },
+        { time: '10.00-10.50 am', subject: 'LAUC', faculty: 'MSP', venue: '6405CR' },
+        { time: '10.50-11.00 am', isBreak: true, label: 'Break' },
+        { time: '11:00-11:50 am', subject: 'ECH', faculty: 'APK', venue: '6405CR' },
+        { time: '11:50-12:40 pm', subject: 'BME', faculty: 'ADP', venue: '6405CR' }
+      ],
+      'D': [
+        { time: '9:10-10.00 am', subject: 'COI', faculty: 'PRP', venue: '6406CR' },
+        { time: '10.00-10.50 am', subject: 'PPS', faculty: 'SVP', venue: '6406CR' },
+        { time: '10.50-11.00 am', isBreak: true, label: 'Break' },
+        { time: '11:00-11:50 am', subject: 'ECH', faculty: 'SKJ', venue: '6406CR' },
+        { time: '11:50-12:40 pm', subject: 'LAUC', faculty: 'LAS', venue: '6406CR' }
+      ],
+      'E': [
+        { time: '9:10-10.00 am', subject: 'ECH', faculty: 'SKJ', venue: '6409CR' },
+        { time: '10.00-10.50 am', subject: 'LAUC', faculty: 'RGT', venue: '6409CR' },
+        { time: '10.50-11.00 am', isBreak: true, label: 'Break' },
+        { time: '11:00-11:50 am', subject: 'COI', faculty: 'PRP', venue: '6409CR' },
+        { time: '11:50-12:40 pm', subject: 'FEE', faculty: 'KSP', venue: '6409CR' }
+      ],
+      'F': [
+        { time: '9:10-10.00 am', subject: 'ECH', faculty: 'FSB', venue: '6501CR' },
+        { time: '10.00-10.50 am', subject: 'FEE', faculty: 'VVP', venue: '6501CR' },
+        { time: '10.50-11.00 am', isBreak: true, label: 'Break' },
+        { time: '11:00-11:50 am', subject: 'PPS', faculty: 'PNM', venue: '6501CR' },
+        { time: '11:50-12:40 pm', subject: 'LAUC', faculty: 'SRS', venue: '6501CR' }
+      ],
+      'G': [
+        { time: '9:10-10.00 am', subject: 'LAUC', faculty: 'MSP', venue: '6502CR' },
+        { time: '10.00-10.50 am', subject: 'PPS', faculty: 'VKH', venue: '6502CR' },
+        { time: '10.50-11.00 am', isBreak: true, label: 'Break' },
+        { time: '11:00-11:50 am', subject: 'ECH', faculty: 'FSB', venue: '6502CR' },
+        { time: '11:50-12:40 pm', subject: 'FEE', faculty: 'VVP', venue: '6502CR' }
+      ],
+      'H': [
+        { time: '9:10-10.00 am', subject: 'LAUC', faculty: 'NS', venue: '6509CR' },
+        { time: '10.00-10.50 am', subject: 'ECE', faculty: 'TSK', venue: '6509CR' },
+        { time: '10.50-11.00 am', isBreak: true, label: 'Break' },
+        { time: '11:00-11:50 am', subject: 'EM', faculty: 'PVK', venue: '6509CR' },
+        { time: '11:50-12:40 pm', subject: 'ECH', faculty: 'SSS', venue: '6509CR' }
+      ],
+      'I': [
+        { time: '9:10-10.00 am', subject: 'LAUC', faculty: 'DBK', venue: '6510CR' },
+        { time: '10.00-10.50 am', subject: 'ECH', faculty: 'RTJ', venue: '6510CR' },
+        { time: '10.50-11.00 am', isBreak: true, label: 'Break' },
+        { time: '11:00-11:50 am', subject: 'ECE', faculty: 'STM', venue: '6510CR' },
+        { time: '11:50-12:40 pm', subject: 'EM', faculty: 'PVK', venue: '6510CR' }
+      ]
+    };
+
+    // Group B Timetable Schedule (Divisions J to R)
+    const divisionSchedulesGroupB = {
+      'J': [
+        { time: '01:00-01.50 pm', subject: 'DECO', faculty: 'TD', venue: '6401CR' },
+        { time: '01.50-02.40 pm', subject: 'CTPS', faculty: 'TS', venue: '6401CR' },
+        { time: '02.40-02.50 pm', isBreak: true, label: 'Break' },
+        { time: '02:50-03:40 pm', subject: 'EPH', faculty: 'SKK', venue: '6401CR' },
+        { time: '03:40-04:30 pm', subject: 'LAUC', faculty: 'GNT', venue: '6401CR' }
+      ],
+      'K': [
+        { time: '01:00-01.50 pm', subject: 'EPH', faculty: 'MRP', venue: '6402CR' },
+        { time: '01.50-02.40 pm', subject: 'DECO', faculty: 'YCD', venue: '6402CR' },
+        { time: '02.40-02.50 pm', isBreak: true, label: 'Break' },
+        { time: '02:50-03:40 pm', subject: 'LAUC', faculty: 'SZB', venue: '6402CR' },
+        { time: '03:40-04:30 pm', subject: 'CTPS', faculty: 'TS', venue: '6402CR' }
+      ],
+      'L': [
+        { time: '01:00-01.50 pm', subject: 'LAUC', faculty: 'SUP', venue: '6405CR' },
+        { time: '01.50-02.40 pm', subject: 'EPH', faculty: 'MRP', venue: '6405CR' },
+        { time: '02.40-02.50 pm', isBreak: true, label: 'Break' },
+        { time: '02:50-03:40 pm', subject: 'DECO', faculty: 'YCD', venue: '6405CR' },
+        { time: '03:40-04:30 pm', subject: 'CTPS', faculty: 'SM', venue: '6405CR' }
+      ],
+      'M': [
+        { time: '01:00-01.50 pm', subject: 'LAUC', faculty: 'AMP', venue: '6406CR' },
+        { time: '01.50-02.40 pm', subject: 'CTPS', faculty: 'SG', venue: '6406CR' },
+        { time: '02.40-02.50 pm', isBreak: true, label: 'Break' },
+        { time: '02:50-03:40 pm', subject: 'DECO', faculty: 'PK', venue: '6406CR' },
+        { time: '03:40-04:30 pm', subject: 'EPH', faculty: 'DAA', venue: '6406CR' }
+      ],
+      'N': [
+        { time: '01:00-01.50 pm', subject: 'LAUC', faculty: 'SSM', venue: '6409CR' },
+        { time: '01.50-02.40 pm', subject: 'CTPS', faculty: 'AB', venue: '6409CR' },
+        { time: '02.40-02.50 pm', isBreak: true, label: 'Break' },
+        { time: '02:50-03:40 pm', subject: 'DECO', faculty: 'SV', venue: '6409CR' },
+        { time: '03:40-04:30 pm', subject: 'EPH', faculty: 'MBK', venue: '6409CR' }
+      ],
+      'O': [
+        { time: '01:00-01.50 pm', subject: 'DELD', faculty: 'RVT', venue: '6501CR' },
+        { time: '01.50-02.40 pm', subject: 'LAUC', faculty: 'LAS', venue: '6501CR' },
+        { time: '02.40-02.50 pm', isBreak: true, label: 'Break' },
+        { time: '02:50-03:40 pm', subject: 'EPH', faculty: 'ARK', venue: '6501CR' },
+        { time: '03:40-04:30 pm', subject: 'DM', faculty: 'SAT', venue: '6501CR' }
+      ],
+      'P': [
+        { time: '01:00-01.50 pm', subject: 'EPH', faculty: 'ARK', venue: '6502CR' },
+        { time: '01.50-02.40 pm', subject: 'DELD', faculty: 'SSD', venue: '6502CR' },
+        { time: '02.40-02.50 pm', isBreak: true, label: 'Break' },
+        { time: '02:50-03:40 pm', subject: 'LAUC', faculty: 'ANV', venue: '6502CR' },
+        { time: '03:40-04:30 pm', subject: 'COI', faculty: 'SY', venue: '6502CR' }
+      ],
+      'Q': [
+        { time: '01:00-01.50 pm', subject: 'LAUC', faculty: 'NGU', venue: '6509CR' },
+        { time: '01.50-02.40 pm', subject: 'COI', faculty: 'BSD', venue: '6509CR' },
+        { time: '02.40-02.50 pm', isBreak: true, label: 'Break' },
+        { time: '02:50-03:40 pm', subject: 'PHY', faculty: 'AAS', venue: '6509CR' },
+        { time: '03:40-04:30 pm', subject: 'DM', faculty: 'PJ', venue: '6509CR' }
+      ],
+      'R': [
+        { time: '01:00-01.50 pm', subject: 'DM', faculty: 'SBB', venue: '6510CR' },
+        { time: '01.50-02.40 pm', subject: 'PHY', faculty: 'AAS', venue: '6510CR' },
+        { time: '02.40-02.50 pm', isBreak: true, label: 'Break' },
+        { time: '02:50-03:40 pm', subject: 'LAUC', faculty: 'SSM', venue: '6510CR' },
+        { time: '03:40-04:30 pm', subject: 'DECO', faculty: 'JK', venue: '6510CR' }
+      ]
+    };
 
     function getTimetableForDivision(div) {
-      const g1Divisions = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-      return g1Divisions.includes(div) ? group1Schedule : group2Schedule;
+      if (divisionSchedulesGroupA[div]) {
+        return divisionSchedulesGroupA[div];
+      }
+      return divisionSchedulesGroupB[div] || [];
     }
 
     function updateTimetable() {
@@ -300,10 +436,11 @@
       document.getElementById('infoClassroom').innerText = info.room;
       document.getElementById('infoTeacher').innerText = info.teacher;
       document.getElementById('infoProgram').innerText = info.program;
+      document.getElementById('infoReportingTime').innerText = info.group === 'A' ? '09:10 AM Sharp' : '01:00 PM Sharp';
       document.getElementById('divInfoCard').classList.remove('hidden');
 
       // Update Timetable Header
-      document.getElementById('ttHeaderTitle').innerText = 'First Day Timetable — Division ' + div;
+      document.getElementById('ttHeaderTitle').innerText = 'First Day Timetable — Division ' + div + ' (Group ' + info.group + ')';
       document.getElementById('ttSubHeader').innerText = `DATE: ${info.date} | Program: ${info.program}`;
 
       // Get division schedule
@@ -324,11 +461,12 @@
           `;
         } else {
           tr.className = 'hover:bg-slate-50/80 transition-colors';
-          const facultyName = row.useClassTeacher ? info.teacher : row.faculty;
+          const fullSubjectName = subjectAbbreviations[row.subject] ? `${row.subject} (${subjectAbbreviations[row.subject]})` : row.subject;
+          
           tr.innerHTML = `
             <td class="py-3.5 px-3 font-bold text-blue-900 border-b border-slate-100">${row.time}</td>
-            <td class="py-3.5 px-3 font-extrabold text-slate-800 border-b border-slate-100">${row.subject}</td>
-            <td class="py-3.5 px-3 text-slate-600 border-b border-slate-100">${facultyName}</td>
+            <td class="py-3.5 px-3 font-extrabold text-slate-800 border-b border-slate-100">${fullSubjectName}</td>
+            <td class="py-3.5 px-3 text-slate-600 border-b border-slate-100"><span class="bg-blue-50 text-blue-800 font-bold px-2 py-0.5 rounded text-[11px]">${row.faculty}</span></td>
             <td class="py-3.5 px-3 border-b border-slate-100">
               <span class="bg-slate-100 text-slate-700 font-bold px-2 py-1 rounded text-[10px]">${row.venue}</span>
             </td>
